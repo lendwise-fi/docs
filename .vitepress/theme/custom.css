@@ -1,0 +1,101 @@
+/**
+ * LendWise brand theme — tokens mirrored from the web app's globals.css
+ * (lendwise-fi/web · src/app/globals.css). Keep the two files in sync:
+ * if the app palette changes, update the oklch values here.
+ *
+ * Source tokens (web):
+ *   --primary            oklch(0.4104 0.1066 22.9979)   deep brick red
+ *   --background (light) oklch(0.9866 0.0021 17.1947)   warm near-white
+ *   --foreground (light) oklch(0.2287 0.0031 17.3831)
+ *   --background (dark)  oklch(0.2178 0 0)              neutral dark
+ *   --foreground (dark)  oklch(0.8853 0 0)
+ *   --brand-bright       primary, lightness +0.10
+ *   --brand-deep         primary, lightness −0.13
+ */
+
+:root {
+  /* ─── Brand ─────────────────────────────────────────────────────────── */
+  --lw-primary: oklch(0.4104 0.1066 22.9979);
+  --lw-brand-bright: oklch(0.5104 0.1066 22.9979); /* primary l+0.10 */
+  --lw-brand-deep: oklch(0.2804 0.1066 22.9979); /* primary l−0.13 */
+
+  --vp-c-brand-1: var(--lw-primary); /* links, active nav */
+  --vp-c-brand-2: var(--lw-brand-bright); /* hover */
+  --vp-c-brand-3: var(--lw-primary); /* solid buttons */
+  --vp-c-brand-soft: oklch(0.4104 0.1066 22.9979 / 0.14);
+
+  /* Buttons */
+  --vp-button-brand-bg: var(--lw-primary);
+  --vp-button-brand-hover-bg: var(--lw-brand-bright);
+  --vp-button-brand-active-bg: var(--lw-brand-deep);
+  --vp-button-brand-text: #ffffff;
+  --vp-button-brand-hover-text: #ffffff;
+  --vp-button-brand-active-text: #ffffff;
+
+  /* Home hero */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    var(--lw-brand-deep) 20%,
+    var(--lw-brand-bright)
+  );
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    oklch(0.4104 0.1066 22.9979 / 0.55),
+    oklch(0.5104 0.1066 22.9979 / 0.25)
+  );
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+/* ─── Light mode surfaces (web :root) ─────────────────────────────────── */
+:root {
+  --vp-c-bg: oklch(0.9866 0.0021 17.1947); /* --background */
+  --vp-c-bg-alt: oklch(0.9484 0.0032 17.2149); /* --muted (sidebar) */
+  --vp-c-bg-soft: oklch(0.9484 0.0032 17.2149); /* cards, code groups */
+  --vp-c-bg-elv: oklch(1 0 0); /* --card */
+
+  --vp-c-text-1: oklch(0.2287 0.0031 17.3831); /* --foreground */
+  --vp-c-text-2: oklch(0.4895 0.0103 17.5101); /* --muted-foreground */
+  --vp-c-text-3: oklch(0.4895 0.0103 17.5101 / 0.72); /* --ink-faint */
+
+  --vp-c-divider: oklch(0.8954 0.0055 17.2593); /* --border */
+  --vp-c-border: oklch(0.8954 0.0055 17.2593);
+  --vp-c-gutter: oklch(0.8954 0.0055 17.2593);
+}
+
+/* ─── Dark mode surfaces (web .dark) ──────────────────────────────────── */
+.dark {
+  /* The app primary (l 0.41) is too dark for text on a dark bg — links use
+     brightened variants; solid buttons keep the true brand color. */
+  --vp-c-brand-1: oklch(0.62 0.1066 22.9979);
+  --vp-c-brand-2: oklch(0.68 0.1066 22.9979);
+  --vp-c-brand-3: var(--lw-primary);
+  --vp-c-brand-soft: oklch(0.5104 0.1066 22.9979 / 0.18);
+
+  --vp-c-bg: oklch(0.2178 0 0); /* --background */
+  --vp-c-bg-alt: oklch(0.2264 0 0); /* --sidebar */
+  --vp-c-bg-soft: oklch(0.252 0 0); /* --card */
+  --vp-c-bg-elv: oklch(0.252 0 0);
+
+  --vp-c-text-1: oklch(0.8853 0 0); /* --foreground */
+  --vp-c-text-2: oklch(0.6734 0.0095 17.3916); /* --muted-foreground */
+  --vp-c-text-3: oklch(0.6734 0.0095 17.3916 / 0.72);
+
+  --vp-c-divider: oklch(0.3211 0 0); /* --border */
+  --vp-c-border: oklch(0.3211 0 0);
+  --vp-c-gutter: oklch(0.3211 0 0);
+
+  --vp-home-hero-name-background: linear-gradient(
+    120deg,
+    oklch(0.55 0.1066 22.9979) 20%,
+    oklch(0.72 0.1 22.9979)
+  );
+}
+
+/* Match the app's tighter radius (--radius: 0.375rem) on interactive chrome. */
+:root {
+  --vp-button-brand-border: transparent;
+}
+.VPButton {
+  border-radius: 6px !important;
+}
