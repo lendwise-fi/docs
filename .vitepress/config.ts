@@ -18,7 +18,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.svg',
-    siteTitle: 'LendWise Docs',
+    // The "docs" badge next to the name is added in theme/custom.css
+    siteTitle: 'LendWise',
 
     nav: [
       { text: 'Guide', link: '/guide/what-is-lendwise' },

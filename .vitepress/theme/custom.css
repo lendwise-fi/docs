@@ -99,3 +99,19 @@
 .VPButton {
   border-radius: 6px !important;
 }
+
+/* ─── Navbar: "LendWise" + docs badge ─────────────────────────────────── */
+.VPNavBarTitle .title::after {
+  content: 'docs';
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--lw-primary);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  vertical-align: middle;
+}
