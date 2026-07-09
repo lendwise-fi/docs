@@ -100,7 +100,11 @@
   border-radius: 6px !important;
 }
 
-/* ─── Navbar: "LendWise" + docs badge ─────────────────────────────────── */
+/* ─── Navbar: "Lendwise" + docs badge ─────────────────────────────────── */
+/* Same brand font as the web app logo (font-zalando in logo.tsx) */
+.VPNavBarTitle .title {
+  font-family: 'Zalando Sans SemiExpanded', system-ui, sans-serif;
+}
 .VPNavBarTitle .title::after {
   content: 'docs';
   margin-left: 8px;

@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'LendWise',
+  title: 'Lendwise',
   description:
     'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains.',
   lang: 'en-US',
@@ -27,6 +27,16 @@ export default defineConfig({
 
   head: [
     ['link', { rel: 'icon', href: '/docs/favicon.svg', type: 'image/svg+xml' }],
+    // Brand font for the navbar title — same Google Font as the web app logo
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Zalando+Sans+SemiExpanded&display=swap',
+      },
+    ],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'LendWise' }],
   ],
@@ -35,7 +45,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/logo.svg',
     // The "docs" badge next to the name is added in theme/custom.css
-    siteTitle: 'LendWise',
+    siteTitle: 'Lendwise',
 
     nav: [
       { text: 'Guide', link: '/guide/what-is-lendwise' },
@@ -108,7 +118,7 @@ export default defineConfig({
 
     footer: {
       message: 'Not financial advice. DeFi lending carries smart-contract and market risk.',
-      copyright: '© 2026 LendWise',
+      copyright: '© 2026 Lendwise',
     },
 
     editLink: {
