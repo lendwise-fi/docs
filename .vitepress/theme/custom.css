@@ -101,9 +101,17 @@
 }
 
 /* ─── Navbar: "Lendwise" + docs badge ─────────────────────────────────── */
-/* Same brand font as the web app logo (font-zalando in logo.tsx) */
+/* Mirror the web app logo exactly (logo.tsx): icon h-7 (28px) flush against
+   the wordmark, Zalando Sans SemiExpanded 18px semibold. */
+:root {
+  --vp-nav-logo-height: 28px;
+}
+.VPNavBarTitle .logo {
+  margin-right: 0;
+}
 .VPNavBarTitle .title {
   font-family: 'Zalando Sans SemiExpanded', system-ui, sans-serif;
+  font-size: 18px;
 }
 .VPNavBarTitle .title::after {
   content: 'docs';

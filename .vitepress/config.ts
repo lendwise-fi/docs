@@ -110,7 +110,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'x', link: 'https://x.com/lendwise_fi' },
+      { icon: 'x', link: 'https://x.com/lendwisefi' },
       { icon: 'github', link: 'https://github.com/lendwise-fi' },
     ],
 

@@ -41,4 +41,4 @@ Once published, cite as:
 }
 ```
 
-_Have feedback on the methodology or want the dataset? Reach out on [X](https://x.com/lendwise_fi)._
+_Have feedback on the methodology or want the dataset? Reach out on [X](https://x.com/lendwisefi)._

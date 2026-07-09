@@ -15,4 +15,4 @@ A no-hype comparison of the three protocols Lendwise tracks — architecture, ra
 
 ---
 
-_Want these in your feed? Follow [@lendwise_fi](https://x.com/lendwise_fi)._
+_Want these in your feed? Follow [@lendwisefi](https://x.com/lendwisefi)._
