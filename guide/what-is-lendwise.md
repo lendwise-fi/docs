@@ -1,6 +1,6 @@
-# What is LendWise
+# What is Lendwise
 
-LendWise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, normalizes their rates onto a single methodology, and shows you where your capital earns the most — or costs the least to borrow.
+Lendwise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, normalizes their rates onto a single methodology, and shows you where your capital earns the most — or costs the least to borrow.
 
 ## The problem
 
@@ -12,9 +12,9 @@ If you lend or borrow stablecoins on-chain, your yield is scattered across dozen
 
 The result: comparing two lending opportunities usually means comparing two numbers that were never computed the same way. Capital ends up parked in the wrong place, quietly under-earning.
 
-## What LendWise does
+## What Lendwise does
 
-LendWise ingests every tracked market on a fixed cadence and republishes it under **one consistent methodology**:
+Lendwise ingests every tracked market on a fixed cadence and republishes it under **one consistent methodology**:
 
 - **~700 active products** across **~120 assets**
 - **8 chains** — Ethereum, Optimism, Polygon, Base, Arbitrum, Avalanche, Linea, and BSC (the last three are Aave-only today)
@@ -32,9 +32,9 @@ On top of that clean dataset, the [optimizer](/guide/optimization) highlights th
 ## Where to go next
 
 - [Getting started](/guide/getting-started) — the fastest path from "curious" to "found a better rate".
-- [The optimizer](/guide/optimization) — how LendWise decides what to surface.
+- [The optimizer](/guide/optimization) — how Lendwise decides what to surface.
 - [GraphQL API](/api/) — query the data yourself.
 
 ::: warning Not financial advice
-LendWise is an information tool. DeFi lending carries smart-contract, oracle, liquidation, and market risk. Always do your own research.
+Lendwise is an information tool. DeFi lending carries smart-contract, oracle, liquidation, and market risk. Always do your own research.
 :::

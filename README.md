@@ -1,6 +1,6 @@
-# LendWise Docs
+# Lendwise Docs
 
-Public documentation site for [LendWise](https://lendwise.fi) — product guide, GraphQL API reference, research, and blog. Built with [VitePress](https://vitepress.dev).
+Public documentation site for [Lendwise](https://lendwise.fi) — product guide, GraphQL API reference, research, and blog. Built with [VitePress](https://vitepress.dev).
 
 ## Develop
 

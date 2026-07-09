@@ -1,6 +1,6 @@
 # Schema & queries
 
-Reference for the LendWise GraphQL API. Endpoint: `POST https://lendwise.fi/api/graphql`.
+Reference for the Lendwise GraphQL API. Endpoint: `POST https://lendwise.fi/api/graphql`.
 
 ## Queries
 

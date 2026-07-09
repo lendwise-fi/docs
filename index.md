@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: LendWise
+  name: Lendwise
   text: DeFi lending yield, one view.
   tagline: Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains — with live, methodologically consistent APY.
   actions:
     - theme: brand
-      text: What is LendWise
+      text: What is Lendwise
       link: /guide/what-is-lendwise
     - theme: alt
       text: GraphQL API

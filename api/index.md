@@ -1,6 +1,6 @@
 # GraphQL API
 
-LendWise exposes its entire normalized dataset through a single GraphQL endpoint. Query hourly and daily APY, full rate breakdowns, market state, and product metadata — the same data that powers the app.
+Lendwise exposes its entire normalized dataset through a single GraphQL endpoint. Query hourly and daily APY, full rate breakdowns, market state, and product metadata — the same data that powers the app.
 
 ## Endpoint
 

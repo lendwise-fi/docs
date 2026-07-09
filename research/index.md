@@ -1,6 +1,6 @@
 # Research
 
-LendWise is built on original research into how lending yield is priced, reported, and dispersed across DeFi protocols. This page hosts our work.
+Lendwise is built on original research into how lending yield is priced, reported, and dispersed across DeFi protocols. This page hosts our work.
 
 ## Working paper
 
@@ -36,7 +36,7 @@ Once published, cite as:
   title  = {Cross-Protocol Yield Dispersion in DeFi Lending Markets},
   author = {TBD},
   year   = {2026},
-  note   = {Working paper, LendWise},
+  note   = {Working paper, Lendwise},
   url    = {https://docs.lendwise.fi/research/}
 }
 ```

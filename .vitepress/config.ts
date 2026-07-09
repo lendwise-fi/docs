@@ -38,7 +38,7 @@ export default defineConfig({
       },
     ],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:site_name', content: 'LendWise' }],
+    ['meta', { property: 'og:site_name', content: 'Lendwise' }],
   ],
 
   themeConfig: {
@@ -60,7 +60,7 @@ export default defineConfig({
         {
           text: 'Introduction',
           items: [
-            { text: 'What is LendWise', link: '/guide/what-is-lendwise' },
+            { text: 'What is Lendwise', link: '/guide/what-is-lendwise' },
             { text: 'Getting started', link: '/guide/getting-started' },
           ],
         },

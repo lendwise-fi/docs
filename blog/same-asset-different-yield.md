@@ -52,7 +52,7 @@ Compare a net-with-rewards number to a base-without-rewards number and you'll "o
 4. Sort. The spread between top and bottom is your opportunity.
 5. Move the position to the top venue — on the underlying protocol.
 
-Steps 2–4 are exactly what LendWise does automatically, and its [optimizer](/guide/optimization) surfaces the widest same-asset spreads each day so you don't have to scan hundreds of markets by hand.
+Steps 2–4 are exactly what Lendwise does automatically, and its [optimizer](/guide/optimization) surfaces the widest same-asset spreads each day so you don't have to scan hundreds of markets by hand.
 
 ## The takeaway
 

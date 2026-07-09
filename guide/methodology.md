@@ -1,10 +1,10 @@
 # Data & methodology
 
-Every rate LendWise shows is produced by the same pipeline, so numbers are comparable across protocols and chains. This page documents exactly how.
+Every rate Lendwise shows is produced by the same pipeline, so numbers are comparable across protocols and chains. This page documents exactly how.
 
 ## Sources
 
-For each protocol, LendWise reads from the most authoritative source available and reconciles on-chain and off-chain data:
+For each protocol, Lendwise reads from the most authoritative source available and reconciles on-chain and off-chain data:
 
 - **Aave V3** — protocol subgraphs + on-chain reserve data.
 - **Morpho** — Blue markets and MetaMorpho vaults via the Morpho API + on-chain.
@@ -24,13 +24,13 @@ Daily (00:10 UTC)  → aggregate the day's hourly rows → apy_daily
 
 ## APR → APY
 
-Protocols report rewards as APR. LendWise converts every APR to APY with daily compounding before it's ever stored or compared:
+Protocols report rewards as APR. Lendwise converts every APR to APY with daily compounding before it's ever stored or compared:
 
 ```
 APY = (1 + APR / 365) ^ 365 − 1
 ```
 
-This matters: a raw 20% reward APR is ~22.1% APY. Comparing an APR from one protocol to an APY from another silently mis-ranks markets. LendWise never does this.
+This matters: a raw 20% reward APR is ~22.1% APY. Comparing an APR from one protocol to an APY from another silently mis-ranks markets. Lendwise never does this.
 
 ## Net APY
 

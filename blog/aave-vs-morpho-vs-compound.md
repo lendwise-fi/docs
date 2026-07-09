@@ -1,6 +1,6 @@
 ---
 title: 'Aave vs Morpho vs Compound: how the big three lending protocols actually differ'
-description: A no-hype comparison of the three protocols LendWise tracks — architecture, rates, rewards, and when each one wins.
+description: A no-hype comparison of the three protocols Lendwise tracks — architecture, rates, rewards, and when each one wins.
 head:
   - ['meta', { property: 'og:title', content: 'Aave vs Morpho vs Compound' }]
 ---
@@ -9,7 +9,7 @@ head:
 
 _~7 min read_
 
-Aave, Morpho, and Compound are the three largest lending venues in DeFi, and LendWise tracks all of them. They're often lumped together as "money markets," but they're built on genuinely different designs — and those differences show up in the rate you earn or pay. Here's the practical breakdown, no maximalism.
+Aave, Morpho, and Compound are the three largest lending venues in DeFi, and Lendwise tracks all of them. They're often lumped together as "money markets," but they're built on genuinely different designs — and those differences show up in the rate you earn or pay. Here's the practical breakdown, no maximalism.
 
 ## The one-line summary
 
@@ -24,7 +24,7 @@ Aave, Morpho, and Compound are the three largest lending venues in DeFi, and Len
 
 Aave is the broadest and deepest of the three: the most assets, the most chains, and the largest pools. Suppliers deposit into a shared pool; borrowers draw against it with per-asset risk parameters set by governance.
 
-**Where it wins:** depth and coverage. If you want to lend a less common asset, or deploy real size without moving the rate, Aave usually has the market. It's live on the most chains LendWise tracks — including Avalanche, Linea, and BSC, where it's often the only option.
+**Where it wins:** depth and coverage. If you want to lend a less common asset, or deploy real size without moving the rate, Aave usually has the market. It's live on the most chains Lendwise tracks — including Avalanche, Linea, and BSC, where it's often the only option.
 
 **Watch for:** because liquidity is shared and governance-managed, rates are "market average" rather than tailored — sometimes leaving efficiency on the table versus a well-curated isolated market.
 
@@ -42,7 +42,7 @@ Compound V3 ("Comet") organizes around a **single borrowable base asset** per de
 
 **Where it wins:** clean, capital-efficient borrowing of the base asset. If your goal is "borrow USDC against ETH cheaply," a Compound V3 market is often the most straightforward, gas-efficient route.
 
-**Watch for:** you supply the base asset to earn; other assets earn nothing (they're collateral only). And subgraph schemas differ by chain, which is exactly the kind of inconsistency LendWise normalizes away for you.
+**Watch for:** you supply the base asset to earn; other assets earn nothing (they're collateral only). And subgraph schemas differ by chain, which is exactly the kind of inconsistency Lendwise normalizes away for you.
 
 ## So which should you use?
 
@@ -57,7 +57,7 @@ The real answer is: **don't pick a protocol, pick a market.** The best venue for
 
 ## Compare them the honest way
 
-The only fair comparison normalizes all three to **net APY** with rewards converted APR→APY and fees netted — otherwise you're comparing numbers the protocols computed differently. That normalization is the whole point of LendWise: every Aave, Morpho, and Compound market, side by side, computed the same way.
+The only fair comparison normalizes all three to **net APY** with rewards converted APR→APY and fees netted — otherwise you're comparing numbers the protocols computed differently. That normalization is the whole point of Lendwise: every Aave, Morpho, and Compound market, side by side, computed the same way.
 
 ---
 

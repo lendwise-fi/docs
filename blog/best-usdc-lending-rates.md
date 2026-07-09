@@ -19,14 +19,14 @@ When you supply USDC to a lending market, borrowers pay to borrow it, and that i
 2. **The interest-rate model** — each protocol maps utilization to a rate differently.
 3. **Rewards** — extra incentives (protocol emissions, Merkl, Merit) paid on top of the organic rate.
 
-The big three venues LendWise tracks — **Aave V3**, **Morpho** (Blue markets + MetaMorpho vaults), and **Compound V3** — each combine these differently, so the same USDC lands at different rates.
+The big three venues Lendwise tracks — **Aave V3**, **Morpho** (Blue markets + MetaMorpho vaults), and **Compound V3** — each combine these differently, so the same USDC lands at different rates.
 
 ## The trap: the highest number isn't always the best
 
 Before you chase a headline APY, three checks:
 
 ### 1. Is it net or base?
-A market advertising "8% APY" including a temporary reward program isn't the same as 8% organic yield. Rewards can end. Look at the **base** rate to know what you'll earn when incentives stop, and the **net** rate for what you earn today. LendWise always shows net, with the breakdown one click away.
+A market advertising "8% APY" including a temporary reward program isn't the same as 8% organic yield. Rewards can end. Look at the **base** rate to know what you'll earn when incentives stop, and the **net** rate for what you earn today. Lendwise always shows net, with the breakdown one click away.
 
 ### 2. Is the market big enough to matter?
 A tiny market can spike to an absurd rate because one borrower drew it to 99% utilization. That rate is real for about an hour. If you can't deploy meaningful size without moving the rate yourself — or you'd struggle to withdraw when utilization is high — the headline is a mirage. Prefer deep, liquid markets.
@@ -43,7 +43,7 @@ Every time, do this:
 3. **Sanity-check the top few**: is the market large? Is the rate mostly organic or mostly rewards? What's utilization?
 4. **Pick the best _durable_ rate**, not just the biggest number.
 
-You can do this by hand across a dozen dashboards, or let [LendWise](https://lendwise.fi) do steps 1–3 in one view — it normalizes every market to net APY and filters out dust automatically.
+You can do this by hand across a dozen dashboards, or let [Lendwise](https://lendwise.fi) do steps 1–3 in one view — it normalizes every market to net APY and filters out dust automatically.
 
 ## Query it programmatically
 

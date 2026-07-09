@@ -11,7 +11,7 @@ Why USDC pays 4.9% in one place and 6.8% in another at the same moment — and h
 A practical guide to finding the top stablecoin supply rate across Aave, Morpho, and Compound — and why the highest headline number often isn't the best one.
 
 ### [Aave vs Morpho vs Compound: how the big three lending protocols actually differ](/blog/aave-vs-morpho-vs-compound)
-A no-hype comparison of the three protocols LendWise tracks — architecture, rates, rewards, and when each one wins.
+A no-hype comparison of the three protocols Lendwise tracks — architecture, rates, rewards, and when each one wins.
 
 ---
 

@@ -6,7 +6,7 @@ The optimizer turns a clean cross-protocol rate feed into a short list of **acti
 
 The same token pays different rates in different places at the same moment. USDC might earn 4.9% on one protocol and 6.8% on another — for holding **the identical asset**. That gap is the single largest, lowest-risk source of leaked yield in DeFi lending, because you're not taking on a new asset or a new risk category to capture it — just a better venue.
 
-LendWise computes, per asset, the **widest spread** between its best and worst qualifying venue:
+Lendwise computes, per asset, the **widest spread** between its best and worst qualifying venue:
 
 ```
 spread = best_net_apy − worst_net_apy
@@ -44,6 +44,6 @@ Two markets quoting "5%" can differ by hundreds of basis points once rewards and
 
 ## From signal to action
 
-Each surfaced signal is a concrete, executable move: _"USDC pays 4.9% here and 6.8% there — move it."_ LendWise identifies the opportunity; you execute it on the underlying protocol. See [Getting started](/guide/getting-started) for the workflow.
+Each surfaced signal is a concrete, executable move: _"USDC pays 4.9% here and 6.8% there — move it."_ Lendwise identifies the opportunity; you execute it on the underlying protocol. See [Getting started](/guide/getting-started) for the workflow.
 
 For the exact ingestion, aggregation, and APY-conversion rules behind these numbers, see [Data & methodology](/guide/methodology).
