@@ -6,11 +6,27 @@ export default defineConfig({
   description:
     'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains.',
   lang: 'en-US',
+  // Served under https://lendwise.fi/docs via a rewrite in the dashboard project
+  base: '/docs/',
   cleanUrls: true,
   lastUpdated: true,
+  srcExclude: ['README.md'],
+
+  sitemap: {
+    hostname: 'https://lendwise.fi/docs/',
+  },
+
+  // Canonical URLs point to lendwise.fi so the *.vercel.app host never competes in search
+  transformPageData(pageData) {
+    const canonicalUrl = `https://lendwise.fi/docs/${pageData.relativePath}`
+      .replace(/index\.md$/, '')
+      .replace(/\.md$/, '')
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(['link', { rel: 'canonical', href: canonicalUrl }])
+  },
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: '/docs/favicon.svg', type: 'image/svg+xml' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:site_name', content: 'LendWise' }],
   ],
