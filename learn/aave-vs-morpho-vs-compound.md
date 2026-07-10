@@ -4,8 +4,6 @@ date: 2026-07-06
 author: Lendwise
 image: /images/test.png
 description: A no-hype comparison of the three protocols Lendwise tracks — architecture, rates, rewards, and when each one wins.
-head:
-  - ['meta', { property: 'og:title', content: 'Aave vs Morpho vs Compound' }]
 ---
 
 # Aave vs Morpho vs Compound: how the big three lending protocols actually differ

@@ -1,0 +1,58 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: learn
+    label: Learn posts
+    description: Articles published at lendwise.fi/docs/learn
+    icon: book-open
+    type: collection
+    path: learn
+    format: yaml-frontmatter
+    filename: '{fields.title}.md'
+    exclude: [index.md]
+    view:
+      primary: title
+      fields: [title, date, author]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        description: One or two sentences shown on the article card and used by search engines.
+        type: text
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+        options:
+          format: yyyy-MM-dd
+        required: true
+      - name: author
+        label: Author
+        type: string
+        default: Lendwise
+      - name: image
+        label: Cover image
+        description: Optional. Shown on the article card and below the title on the article page.
+        type: image
+      - name: body
+        label: Article
+        type: rich-text
+        default: |
+          Start with a short introduction: what question does this article answer, and for whom?
+
+          ## First section
+
+          Write your content here. Use "Heading 2" for section titles.
+
+          ## Going further
+
+          Wrap up with practical takeaways and, when relevant, link to the app at https://lendwise.fi.

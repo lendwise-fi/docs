@@ -3,8 +3,6 @@ title: The best USDC lending rates right now (and how to read them)
 date: 2026-07-07
 author: Lendwise
 description: A practical guide to finding the top stablecoin supply rate across Aave, Morpho, and Compound — and why the highest headline number often isn't the best one.
-head:
-  - ['meta', { property: 'og:title', content: 'The best USDC lending rates right now' }]
 ---
 
 # The best USDC lending rates right now (and how to read them)

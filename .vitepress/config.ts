@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitepress'
 
 // Minimal structural types for the markdown-it core rule below — markdown-it
@@ -10,7 +12,7 @@ interface MdToken {
   attrSet(name: string, value: string): void
 }
 interface MdCoreState {
-  env: { frontmatter?: { image?: string }; relativePath?: string }
+  env: { frontmatter?: { image?: string; title?: string }; relativePath?: string }
   src: string
   tokens: MdToken[]
   Token: new (type: string, tag: string, nesting: -1 | 0 | 1) => MdToken
@@ -28,10 +30,24 @@ function injectPostHeader(state: MdCoreState): void {
   const path = state.env.relativePath ?? ''
   if (!path.startsWith('learn/') || path === 'learn/index.md') return
 
-  const h1Close = state.tokens.findIndex(
+  let h1Close = state.tokens.findIndex(
     (t) => t.type === 'heading_close' && t.tag === 'h1'
   )
-  if (h1Close === -1) return
+  if (h1Close === -1) {
+    // Posts written through Pages CMS have no H1 in the body — synthesize it
+    // from the frontmatter title so every post still renders a heading.
+    const title = state.env.frontmatter?.title
+    if (!title) return
+    const hOpen = new state.Token('heading_open', 'h1', 1)
+    const hInline = new state.Token('inline', '', 0)
+    hInline.content = title
+    const hText = new state.Token('text', '', 0)
+    hText.content = title
+    hInline.children = [hText]
+    const hClose = new state.Token('heading_close', 'h1', -1)
+    state.tokens.splice(0, 0, hOpen, hInline, hClose)
+    h1Close = 2
+  }
 
   const minutes = Math.max(
     1,
@@ -60,6 +76,37 @@ function injectPostHeader(state: MdCoreState): void {
   }
 
   state.tokens.splice(h1Close + 1, 0, ...injected)
+}
+
+/**
+ * The Learn sidebar is generated from the files in learn/ so posts published
+ * through Pages CMS appear without editing this config. Labels keep the title
+ * up to the first colon (trailing parentheticals stripped) to stay short.
+ */
+function learnSidebarItems(): { text: string; link: string }[] {
+  const dir = fileURLToPath(new URL('../learn', import.meta.url))
+  return fs
+    .readdirSync(dir)
+    .filter((file) => file.endsWith('.md') && file !== 'index.md')
+    .map((file) => {
+      const src = fs.readFileSync(`${dir}/${file}`, 'utf8')
+      const fm = src.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? ''
+      const field = (key: string): string => {
+        const match = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'))
+        return match ? match[1].trim().replace(/^(['"])(.*)\1$/, '$2') : ''
+      }
+      const title = field('title') || file.replace(/\.md$/, '')
+      return {
+        text: title
+          .split(':')[0]
+          .replace(/\s*\([^)]*\)\s*$/, '')
+          .trim(),
+        link: `/learn/${file.replace(/\.md$/, '')}`,
+        date: field('date'),
+      }
+    })
+    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+    .map(({ text, link }) => ({ text, link }))
 }
 
 // https://vitepress.dev/reference/site-config
@@ -93,6 +140,30 @@ export default defineConfig({
       .replace(/\.md$/, '')
     pageData.frontmatter.head ??= []
     pageData.frontmatter.head.push(['link', { rel: 'canonical', href: canonicalUrl }])
+
+    // Learn posts: Open Graph tags are derived from frontmatter so authors
+    // publishing through Pages CMS never have to manage a head: block.
+    if (
+      pageData.relativePath.startsWith('learn/') &&
+      pageData.relativePath !== 'learn/index.md'
+    ) {
+      const { title, description, image } = pageData.frontmatter
+      if (title) {
+        pageData.frontmatter.head.push(['meta', { property: 'og:title', content: title }])
+      }
+      if (description) {
+        pageData.frontmatter.head.push([
+          'meta',
+          { property: 'og:description', content: description },
+        ])
+      }
+      if (image) {
+        pageData.frontmatter.head.push([
+          'meta',
+          { property: 'og:image', content: `https://lendwise.fi/docs${image}` },
+        ])
+      }
+    }
   },
 
   head: [
@@ -160,21 +231,7 @@ export default defineConfig({
       '/learn/': [
         {
           text: 'Learn',
-          items: [
-            { text: 'All posts', link: '/learn/' },
-            {
-              text: 'Same asset, different yield',
-              link: '/learn/same-asset-different-yield',
-            },
-            {
-              text: 'Best USDC lending rates',
-              link: '/learn/best-usdc-lending-rates',
-            },
-            {
-              text: 'Aave vs Morpho vs Compound',
-              link: '/learn/aave-vs-morpho-vs-compound',
-            },
-          ],
+          items: [{ text: 'All posts', link: '/learn/' }, ...learnSidebarItems()],
         },
       ],
     },
