@@ -3,18 +3,12 @@ import { ref } from 'vue'
 
 import { useData, withBase } from 'vitepress'
 
+import { formatDate } from '../../learn'
+
 defineProps<{ readingTime: string }>()
 
 const { frontmatter } = useData()
 const copied = ref(false)
-
-function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  })
-}
 
 function shareOnX(): void {
   const url = new URL('https://x.com/intent/post')

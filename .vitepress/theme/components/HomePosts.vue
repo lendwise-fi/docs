@@ -1,17 +1,10 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
 
+import { formatDate } from '../../learn'
 import { data } from '../../learn.data'
 
 const posts = data.slice(0, 4)
-
-function formatDate(date: string): string {
-  return new Date(date).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  })
-}
 </script>
 
 <template>

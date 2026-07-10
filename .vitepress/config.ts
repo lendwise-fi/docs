@@ -1,6 +1,9 @@
 import fs from 'node:fs'
 import { fileURLToPath } from 'node:url'
+import matter from 'gray-matter'
 import { defineConfig } from 'vitepress'
+
+import { SITE_URL, isLearnPost, readingTime, shortTitle } from './learn'
 
 // Minimal structural types for the markdown-it core rule below — markdown-it
 // is a transitive dependency of vitepress, so its own types aren't resolvable.
@@ -18,8 +21,6 @@ interface MdCoreState {
   Token: new (type: string, tag: string, nesting: -1 | 0 | 1) => MdToken
 }
 
-const WORDS_PER_MINUTE = 220
-
 /**
  * Learn posts get a Medium-style header injected right after the H1:
  * `<PostMeta>` (author, follow, read time, date, comments/share bar) followed
@@ -28,7 +29,7 @@ const WORDS_PER_MINUTE = 220
  */
 function injectPostHeader(state: MdCoreState): void {
   const path = state.env.relativePath ?? ''
-  if (!path.startsWith('learn/') || path === 'learn/index.md') return
+  if (!isLearnPost(path)) return
 
   let h1Close = state.tokens.findIndex(
     (t) => t.type === 'heading_close' && t.tag === 'h1'
@@ -49,12 +50,8 @@ function injectPostHeader(state: MdCoreState): void {
     h1Close = 2
   }
 
-  const minutes = Math.max(
-    1,
-    Math.round(state.src.split(/\s+/g).length / WORDS_PER_MINUTE)
-  )
   const meta = new state.Token('html_block', '', 0)
-  meta.content = `<PostMeta reading-time="${minutes} min read" />\n`
+  meta.content = `<PostMeta reading-time="${readingTime(state.src)}" />\n`
 
   const injected: MdToken[] = [meta]
 
@@ -80,8 +77,8 @@ function injectPostHeader(state: MdCoreState): void {
 
 /**
  * The Learn sidebar is generated from the files in learn/ so posts published
- * through Pages CMS appear without editing this config. Labels keep the title
- * up to the first colon (trailing parentheticals stripped) to stay short.
+ * through Pages CMS appear without editing this config. Labels use the
+ * optional `titleShort` frontmatter field, else the shortened title.
  */
 function learnSidebarItems(): { text: string; link: string }[] {
   const dir = fileURLToPath(new URL('../learn', import.meta.url))
@@ -89,23 +86,23 @@ function learnSidebarItems(): { text: string; link: string }[] {
     .readdirSync(dir)
     .filter((file) => file.endsWith('.md') && file !== 'index.md')
     .map((file) => {
-      const src = fs.readFileSync(`${dir}/${file}`, 'utf8')
-      const fm = src.match(/^---\r?\n([\s\S]*?)\r?\n---/)?.[1] ?? ''
-      const field = (key: string): string => {
-        const match = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'))
-        return match ? match[1].trim().replace(/^(['"])(.*)\1$/, '$2') : ''
-      }
-      const title = field('title') || file.replace(/\.md$/, '')
+      const { data } = matter(fs.readFileSync(`${dir}/${file}`, 'utf8'))
+      const slug = file.replace(/\.md$/, '')
+      const title = typeof data.title === 'string' && data.title ? data.title : slug
+      // Dates parse as UTC-midnight Date objects; normalize to yyyy-MM-dd
+      // strings, which sort correctly (missing dates sort last).
+      const date =
+        data.date instanceof Date ? data.date.toISOString().slice(0, 10) : ''
       return {
-        text: title
-          .split(':')[0]
-          .replace(/\s*\([^)]*\)\s*$/, '')
-          .trim(),
-        link: `/learn/${file.replace(/\.md$/, '')}`,
-        date: field('date'),
+        text:
+          typeof data.titleShort === 'string' && data.titleShort
+            ? data.titleShort
+            : shortTitle(title),
+        link: `/learn/${slug}`,
+        date,
       }
     })
-    .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+    .sort((a, b) => b.date.localeCompare(a.date))
     .map(({ text, link }) => ({ text, link }))
 }
 
@@ -113,9 +110,14 @@ function learnSidebarItems(): { text: string; link: string }[] {
 export default defineConfig({
   markdown: {
     config(md) {
-      md.core.ruler.push('learn_post_header', (state) =>
-        injectPostHeader(state as unknown as MdCoreState)
-      )
+      // Register before markdown-it-anchor's core rule so a synthesized H1
+      // still receives an id/anchor and appears in the extracted headers.
+      const rule = (state: unknown) => injectPostHeader(state as MdCoreState)
+      try {
+        md.core.ruler.before('anchor', 'learn_post_header', rule)
+      } catch {
+        md.core.ruler.push('learn_post_header', rule)
+      }
     },
   },
 
@@ -130,12 +132,12 @@ export default defineConfig({
   srcExclude: ['README.md'],
 
   sitemap: {
-    hostname: 'https://lendwise.fi/docs/',
+    hostname: `${SITE_URL}/`,
   },
 
   // Canonical URLs point to lendwise.fi so the *.vercel.app host never competes in search
   transformPageData(pageData) {
-    const canonicalUrl = `https://lendwise.fi/docs/${pageData.relativePath}`
+    const canonicalUrl = `${SITE_URL}/${pageData.relativePath}`
       .replace(/index\.md$/, '')
       .replace(/\.md$/, '')
     pageData.frontmatter.head ??= []
@@ -143,25 +145,23 @@ export default defineConfig({
 
     // Learn posts: Open Graph tags are derived from frontmatter so authors
     // publishing through Pages CMS never have to manage a head: block.
-    if (
-      pageData.relativePath.startsWith('learn/') &&
-      pageData.relativePath !== 'learn/index.md'
-    ) {
-      const { title, description, image } = pageData.frontmatter
-      if (title) {
-        pageData.frontmatter.head.push(['meta', { property: 'og:title', content: title }])
-      }
-      if (description) {
-        pageData.frontmatter.head.push([
-          'meta',
-          { property: 'og:description', content: description },
-        ])
-      }
-      if (image) {
-        pageData.frontmatter.head.push([
-          'meta',
-          { property: 'og:image', content: `https://lendwise.fi/docs${image}` },
-        ])
+    // og:title keeps the short curated form social cards had before.
+    if (isLearnPost(pageData.relativePath)) {
+      const { title, titleShort, description, image } = pageData.frontmatter
+      const ogTitle = titleShort || (title ? shortTitle(title) : '')
+      const ogImage = !image
+        ? ''
+        : /^https?:\/\//.test(image)
+          ? image
+          : `${SITE_URL}${image.startsWith('/') ? '' : '/'}${image}`
+      for (const [property, content] of [
+        ['og:title', ogTitle],
+        ['og:description', description],
+        ['og:image', ogImage],
+      ]) {
+        if (content) {
+          pageData.frontmatter.head.push(['meta', { property, content }])
+        }
       }
     }
   },

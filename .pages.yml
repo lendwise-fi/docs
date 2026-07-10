@@ -24,6 +24,10 @@ content:
         label: Title
         type: string
         required: true
+      - name: titleShort
+        label: Short title
+        description: Optional. Used in the sidebar and on social cards; defaults to the title cut at the first colon.
+        type: string
       - name: description
         label: Description
         description: One or two sentences shown on the article card and used by search engines.

@@ -1,5 +1,7 @@
 import { createContentLoader } from 'vitepress'
 
+import { readingTime } from './learn'
+
 export interface LearnPost {
   url: string
   title: string
@@ -13,25 +15,25 @@ export interface LearnPost {
 declare const data: LearnPost[]
 export { data }
 
-const WORDS_PER_MINUTE = 220
-
 export default createContentLoader('learn/*.md', {
   includeSrc: true,
   transform(raw): LearnPost[] {
     return raw
       .filter((page) => page.url !== '/learn/')
-      .map(({ url, frontmatter, src }) => {
-        const words = (src ?? '').split(/\s+/g).length
-        return {
-          url,
-          title: frontmatter.title as string,
-          description: (frontmatter.description as string) ?? '',
-          date: (frontmatter.date as string) ?? '',
-          author: (frontmatter.author as string) ?? 'Lendwise',
-          image: frontmatter.image as string | undefined,
-          readingTime: `${Math.max(1, Math.round(words / WORDS_PER_MINUTE))} min read`,
-        }
-      })
-      .sort((a, b) => +new Date(b.date) - +new Date(a.date))
+      .map(({ url, frontmatter, src }) => ({
+        url,
+        title: frontmatter.title as string,
+        description: (frontmatter.description as string) ?? '',
+        // YAML dates parse as UTC-midnight Date objects; normalize to
+        // yyyy-MM-dd strings so sorting and UTC formatting are deterministic.
+        date:
+          frontmatter.date instanceof Date
+            ? frontmatter.date.toISOString().slice(0, 10)
+            : ((frontmatter.date as string) ?? ''),
+        author: (frontmatter.author as string) ?? 'Lendwise',
+        image: frontmatter.image as string | undefined,
+        readingTime: readingTime(src ?? ''),
+      }))
+      .sort((a, b) => b.date.localeCompare(a.date))
   },
 })
