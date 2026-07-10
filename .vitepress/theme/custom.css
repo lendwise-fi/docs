@@ -100,6 +100,38 @@
   border-radius: 6px !important;
 }
 
+/* ─── Home hero: oversized brand icon bleeding off the right edge ────────
+   Mirrors the web app's CTASection (landing/CTASection.tsx): 800px icon,
+   right/bottom offsets, low opacity, decorative only. */
+.VPHome .VPHero {
+  position: relative;
+  overflow: hidden;
+}
+.VPHome .VPHero > .container {
+  position: relative;
+  z-index: 1;
+}
+.VPHome .VPHero::after {
+  content: '';
+  position: absolute;
+  right: -100px;
+  bottom: -200px;
+  width: 800px;
+  height: 800px;
+  background: url('/docs/lendwise-icon.svg') no-repeat center / contain;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+/* ─── Learn post cover (injected after H1 from `image` frontmatter) ─────── */
+.vp-doc .post-cover {
+  margin: 24px 0 8px;
+}
+.vp-doc .post-cover img {
+  width: 100%;
+  border-radius: 6px;
+}
+
 /* ─── Navbar: "Lendwise" + docs badge ─────────────────────────────────── */
 /* Mirror the web app logo exactly (logo.tsx): icon h-7 (28px) flush against
    the wordmark, Zalando Sans SemiExpanded 18px semibold. */

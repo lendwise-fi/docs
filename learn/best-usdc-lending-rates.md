@@ -1,5 +1,7 @@
 ---
 title: The best USDC lending rates right now (and how to read them)
+date: 2026-07-07
+author: Lendwise
 description: A practical guide to finding the top stablecoin supply rate across Aave, Morpho, and Compound — and why the highest headline number often isn't the best one.
 head:
   - ['meta', { property: 'og:title', content: 'The best USDC lending rates right now' }]
@@ -7,7 +9,6 @@ head:
 
 # The best USDC lending rates right now (and how to read them)
 
-_~6 min read_
 
 USDC is the default parking spot for on-chain dollars, which makes "where do I get the best USDC lending rate?" one of the most-asked questions in DeFi. The honest answer is: _it depends on the day, the chain, and how you read the number_. This is how to answer it for yourself, every time.
 

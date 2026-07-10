@@ -1,5 +1,8 @@
 ---
 title: 'Aave vs Morpho vs Compound: how the big three lending protocols actually differ'
+date: 2026-07-06
+author: Lendwise
+image: /images/test.png
 description: A no-hype comparison of the three protocols Lendwise tracks — architecture, rates, rewards, and when each one wins.
 head:
   - ['meta', { property: 'og:title', content: 'Aave vs Morpho vs Compound' }]
@@ -7,7 +10,6 @@ head:
 
 # Aave vs Morpho vs Compound: how the big three lending protocols actually differ
 
-_~7 min read_
 
 Aave, Morpho, and Compound are the three largest lending venues in DeFi, and Lendwise tracks all of them. They're often lumped together as "money markets," but they're built on genuinely different designs — and those differences show up in the rate you earn or pay. Here's the practical breakdown, no maximalism.
 
@@ -32,7 +34,7 @@ Aave is the broadest and deepest of the three: the most assets, the most chains,
 
 Morpho reimagines lending as **isolated markets** (Morpho Blue) plus **curated vaults** (MetaMorpho) that allocate across them. Each market is a single collateral/loan pair with its own risk parameters; vaults let a curator route deposits to the best mix of those markets.
 
-**Where it wins:** capital efficiency and tailored risk. Isolated markets mean a bad asset can't contaminate the rest, and curated vaults can chase the best risk-adjusted yield actively. This often produces the **highest net supply rates** for stablecoins — a big reason Morpho frequently tops the [same-asset spread](/blog/same-asset-different-yield).
+**Where it wins:** capital efficiency and tailored risk. Isolated markets mean a bad asset can't contaminate the rest, and curated vaults can chase the best risk-adjusted yield actively. This often produces the **highest net supply rates** for stablecoins — a big reason Morpho frequently tops the [same-asset spread](/learn/same-asset-different-yield).
 
 **Watch for:** you're trusting a market's or vault's risk configuration. Read who curates it and what it holds. More upside, more homework.
 

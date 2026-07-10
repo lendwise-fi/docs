@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Lendwise public documentation — product, GraphQL API, research, and blog.",
+  "description": "Lendwise public documentation — product, GraphQL API, research, and learn.",
   "scripts": {
     "dev": "vitepress dev",
     "build": "vitepress build",

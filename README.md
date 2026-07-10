@@ -1,6 +1,6 @@
 # Lendwise Docs
 
-Public documentation site for [Lendwise](https://lendwise.fi) — product guide, GraphQL API reference, research, and blog. Built with [VitePress](https://vitepress.dev).
+Public documentation site for [Lendwise](https://lendwise.fi) — product guide, GraphQL API reference, research, and Learn (educational articles). Built with [VitePress](https://vitepress.dev).
 
 ## Develop
 
@@ -19,13 +19,13 @@ index.md               home (hero + features)
 guide/                 what-is-lendwise · getting-started · optimization · methodology
 api/                   GraphQL API overview + schema & queries
 research/              research paper landing (fill in the PDF + abstract)
-blog/                  index + acquisition posts
+learn/                 Lendwise Learn — educational posts
 public/                logo.svg, favicon.svg, and any PDFs/images
 ```
 
 ## Adding content
 
-- **Blog post:** add `blog/my-post.md` with frontmatter (`title`, `description`), then link it from `blog/index.md` and the sidebar in `.vitepress/config.ts`.
+- **Learn post:** add `learn/my-post.md` with frontmatter (`title`, `description`), then link it from the sidebar in `.vitepress/config.ts`.
 - **Guide page:** add under `guide/` and register in the sidebar.
 - **Research PDF:** drop it in `public/` and link as `/your-file.pdf`.
 

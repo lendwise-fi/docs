@@ -1,7 +1,77 @@
 import { defineConfig } from 'vitepress'
 
+// Minimal structural types for the markdown-it core rule below — markdown-it
+// is a transitive dependency of vitepress, so its own types aren't resolvable.
+interface MdToken {
+  type: string
+  tag: string
+  content: string
+  children: MdToken[] | null
+  attrSet(name: string, value: string): void
+}
+interface MdCoreState {
+  env: { frontmatter?: { image?: string }; relativePath?: string }
+  src: string
+  tokens: MdToken[]
+  Token: new (type: string, tag: string, nesting: -1 | 0 | 1) => MdToken
+}
+
+const WORDS_PER_MINUTE = 220
+
+/**
+ * Learn posts get a Medium-style header injected right after the H1:
+ * `<PostMeta>` (author, follow, read time, date, comments/share bar) followed
+ * by the `image` frontmatter rendered as a cover when present. The cover is
+ * emitted as regular image tokens so VitePress applies base/asset handling.
+ */
+function injectPostHeader(state: MdCoreState): void {
+  const path = state.env.relativePath ?? ''
+  if (!path.startsWith('learn/') || path === 'learn/index.md') return
+
+  const h1Close = state.tokens.findIndex(
+    (t) => t.type === 'heading_close' && t.tag === 'h1'
+  )
+  if (h1Close === -1) return
+
+  const minutes = Math.max(
+    1,
+    Math.round(state.src.split(/\s+/g).length / WORDS_PER_MINUTE)
+  )
+  const meta = new state.Token('html_block', '', 0)
+  meta.content = `<PostMeta reading-time="${minutes} min read" />\n`
+
+  const injected: MdToken[] = [meta]
+
+  const image = state.env.frontmatter?.image
+  if (image) {
+    const pOpen = new state.Token('paragraph_open', 'p', 1)
+    pOpen.attrSet('class', 'post-cover')
+    const inline = new state.Token('inline', '', 0)
+    inline.content = ''
+    inline.children = []
+    const img = new state.Token('image', 'img', 0)
+    img.attrSet('src', image)
+    img.attrSet('alt', '')
+    img.children = []
+    img.content = ''
+    inline.children.push(img)
+    const pClose = new state.Token('paragraph_close', 'p', -1)
+    injected.push(pOpen, inline, pClose)
+  }
+
+  state.tokens.splice(h1Close + 1, 0, ...injected)
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  markdown: {
+    config(md) {
+      md.core.ruler.push('learn_post_header', (state) =>
+        injectPostHeader(state as unknown as MdCoreState)
+      )
+    },
+  },
+
   title: 'Lendwise',
   description:
     'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains.',
@@ -51,8 +121,8 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/what-is-lendwise' },
       { text: 'API', link: '/api/' },
       { text: 'Research', link: '/research/' },
-      { text: 'Blog', link: '/blog/' },
-      { text: 'App ↗', link: 'https://lendwise.fi' },
+      { text: 'Learn', link: '/learn/' },
+      { text: 'App', link: 'https://lendwise.fi' },
     ],
 
     sidebar: {
@@ -87,22 +157,22 @@ export default defineConfig({
           items: [{ text: 'Overview', link: '/research/' }],
         },
       ],
-      '/blog/': [
+      '/learn/': [
         {
-          text: 'Blog',
+          text: 'Learn',
           items: [
-            { text: 'All posts', link: '/blog/' },
+            { text: 'All posts', link: '/learn/' },
             {
               text: 'Same asset, different yield',
-              link: '/blog/same-asset-different-yield',
+              link: '/learn/same-asset-different-yield',
             },
             {
               text: 'Best USDC lending rates',
-              link: '/blog/best-usdc-lending-rates',
+              link: '/learn/best-usdc-lending-rates',
             },
             {
               text: 'Aave vs Morpho vs Compound',
-              link: '/blog/aave-vs-morpho-vs-compound',
+              link: '/learn/aave-vs-morpho-vs-compound',
             },
           ],
         },

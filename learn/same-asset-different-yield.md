@@ -1,5 +1,7 @@
 ---
 title: 'Same asset, different yield: the biggest inefficiency in DeFi lending'
+date: 2026-07-08
+author: Lendwise
 description: Why USDC pays 4.9% in one place and 6.8% in another at the same moment — and how to capture the gap without taking on new risk.
 head:
   - ['meta', { property: 'og:title', content: 'Same asset, different yield' }]
@@ -7,7 +9,6 @@ head:
 
 # Same asset, different yield: the biggest inefficiency in DeFi lending
 
-_~5 min read_
 
 Here's a number that should bother you more than it does: at almost any moment, the exact same stablecoin earns wildly different yields depending on where you park it. USDC might pay **4.9%** on one lending market and **6.8%** on another — for holding the identical asset, at the identical time.
 
