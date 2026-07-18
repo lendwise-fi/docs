@@ -1,6 +1,6 @@
 # Lendwise Docs
 
-**[Lendwise](https://lendwise.fi)** is a DeFi lending yield aggregator and optimizer. It tracks the supply and borrow markets of **Aave V3**, **Morpho**, and **Compound V3** across **8 chains**, standardizes every rate to one net-APY methodology, and shows you where your capital earns the most — or costs the least to borrow.
+**[Lendwise](https://lendwise.fi)** is a DeFi lending yield aggregator and optimizer. It tracks the supply and borrow markets of **Aave V3**, **Morpho**, and **Compound V3** across **25+ chains**, standardizes every rate to one net-APY methodology, and shows you where your capital earns the most — or costs the least to borrow.
 
 This repository contains the source of the public documentation site, live at **[lendwise.fi/docs](https://lendwise.fi/docs/)**.
 

@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Lendwise
   text: One standard for DeFi lending.
-  tagline: Compare standardized net APYs across Aave, Morpho, and Compound on 8 chains — and optimize your allocation by risk profile and investment horizon.
+  tagline: Compare standardized net APYs across Aave, Morpho, and Compound on 25+ chains — and optimize your allocation by risk profile and investment horizon.
   actions:
     - theme: brand
       text: What is Lendwise

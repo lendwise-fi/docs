@@ -1,3 +1,7 @@
+<script setup>
+import { data as stats } from '../.vitepress/stats.data'
+</script>
+
 # What is Lendwise
 
 Lendwise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, standardizes their rates to one methodology — one standard — and shows you where your capital earns the most, or costs the least to borrow.
@@ -18,8 +22,8 @@ Two things:
 
 **One standard.** Lendwise ingests every tracked market on a fixed cadence and republishes it under one consistent methodology:
 
-- **~700 active products** across **~120 assets**
-- **8 chains** — Ethereum, Optimism, Polygon, Base, Arbitrum, Avalanche, Linea, and BSC (the last three are Aave-only today)
+- **{{ stats.lendingMarkets }} active products** across **{{ stats.assets }} assets**
+- **{{ stats.standardizedChains }} chains standardized** — every mainnet the protocol APIs serve, from Ethereum and Base to Plasma and Katana — with wallet execution on {{ stats.executionChains }} of them (the rest are view-only)
 - **3 protocols** — Aave V3, Morpho (Blue & MetaMorpho), Compound V3
 - Rates stored as **APY**, with rewards, fees, and direction handled explicitly (see [Methodology](/guide/methodology))
 

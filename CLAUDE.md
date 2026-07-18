@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Public documentation site for Lendwise (DeFi lending yield aggregator across Aave/Morpho/Compound on 8 chains), built with VitePress. Served at `lendwise.fi/docs` via a `/docs/:path*` rewrite from a separate dashboard project (see `base: '/docs/'` in config and `vercel.json`) — there is no standalone docs domain.
+Public documentation site for Lendwise (DeFi lending yield aggregator across Aave/Morpho/Compound on 25+ chains), built with VitePress. Platform counts (chains, markets, assets) come from `.vitepress/stats.data.ts`, which fetches `https://lendwise.fi/api/stats` at build time — interpolate the loader fields (`stats.standardizedChains`, `stats.lendingMarkets`, …) in pages instead of hardcoding numbers. Served at `lendwise.fi/docs` via a `/docs/:path*` rewrite from a separate dashboard project (see `base: '/docs/'` in config and `vercel.json`) — there is no standalone docs domain.
 
 ## Commands
 
