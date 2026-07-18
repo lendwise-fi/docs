@@ -37,7 +37,7 @@ Once published, cite as:
   author = {TBD},
   year   = {2026},
   note   = {Working paper, Lendwise},
-  url    = {https://docs.lendwise.fi/research/}
+  url    = {https://lendwise.fi/docs/research/}
 }
 ```
 
