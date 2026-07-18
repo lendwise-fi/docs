@@ -43,7 +43,7 @@ Every time, do this:
 3. **Sanity-check the top few**: is the market large? Is the rate mostly organic or mostly rewards? What's utilization?
 4. **Pick the best _durable_ rate**, not just the biggest number.
 
-You can do this by hand across a dozen dashboards, or let [Lendwise](https://lendwise.fi) do steps 1–3 in one view — it normalizes every market to net APY and filters out dust automatically.
+You can do this by hand across a dozen dashboards, or let [Lendwise](https://lendwise.fi) do steps 1–3 in one view — it standardizes every market to net APY and filters out dust automatically.
 
 ## Query it programmatically
 

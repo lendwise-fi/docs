@@ -1,6 +1,6 @@
 # What is Lendwise
 
-Lendwise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, normalizes their rates onto a single methodology, and shows you where your capital earns the most — or costs the least to borrow.
+Lendwise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, standardizes their rates to one methodology — one standard — and shows you where your capital earns the most, or costs the least to borrow.
 
 ## The problem
 
@@ -14,14 +14,16 @@ The result: comparing two lending opportunities usually means comparing two numb
 
 ## What Lendwise does
 
-Lendwise ingests every tracked market on a fixed cadence and republishes it under **one consistent methodology**:
+Two things:
+
+**One standard.** Lendwise ingests every tracked market on a fixed cadence and republishes it under one consistent methodology:
 
 - **~700 active products** across **~120 assets**
 - **8 chains** — Ethereum, Optimism, Polygon, Base, Arbitrum, Avalanche, Linea, and BSC (the last three are Aave-only today)
 - **3 protocols** — Aave V3, Morpho (Blue & MetaMorpho), Compound V3
 - Rates stored as **APY**, with rewards, fees, and direction handled explicitly (see [Methodology](/guide/methodology))
 
-On top of that clean dataset, the [optimizer](/guide/optimization) highlights the moves that matter: the widest same-asset spreads, the best stablecoin venue right now, and markets that just moved.
+**One allocation.** On top of that standardized dataset, the [optimizer](/guide/optimization) tells you how to deploy your capital — an allocation across markets matched to your risk profile and investment horizon.
 
 ## Who it's for
 

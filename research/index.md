@@ -6,7 +6,7 @@ Lendwise is built on original research into how lending yield is priced, reporte
 
 **Cross-Protocol Yield Dispersion in DeFi Lending Markets** _(working title)_
 
-> **Abstract.** _Placeholder — replace with the paper abstract._ We study the dispersion of realized lending yields for identical assets across the major on-chain money markets (Aave V3, Morpho, Compound V3) over multiple chains. Using a normalized, direction-aware APY methodology that converts all reward APRs to compounded APY and nets protocol fees, we quantify the persistent same-asset spread available to lenders, characterize its drivers (incentive programs, utilization dynamics, and fragmentation across chains), and estimate the yield left on the table by capital that does not rebalance.
+> **Abstract.** _Placeholder — replace with the paper abstract._ We study the dispersion of realized lending yields for identical assets across the major on-chain money markets (Aave V3, Morpho, Compound V3) over multiple chains. Using a standardized, direction-aware APY methodology that converts all reward APRs to compounded APY and nets protocol fees, we quantify the persistent same-asset spread available to lenders, characterize its drivers (incentive programs, utilization dynamics, and fragmentation across chains), and estimate the yield left on the table by capital that does not rebalance.
 
 - **Authors:** _TBD_
 - **Status:** Working paper — _draft_
@@ -24,7 +24,7 @@ Lendwise is built on original research into how lending yield is priced, reporte
 The research underpins three things you can see in the product:
 
 1. **The same-asset spread is real and persistent** — not a fleeting arbitrage, but a structural feature of fragmented lending markets. This is the basis of the [optimizer](/guide/optimization).
-2. **Naïve rate comparison is systematically wrong** — mixing APR with APY, or base with net, mis-ranks markets. Our normalization ([methodology](/guide/methodology)) removes that bias.
+2. **Naïve rate comparison is systematically wrong** — mixing APR with APY, or base with net, mis-ranks markets. Our standardization ([methodology](/guide/methodology)) removes that bias.
 3. **Dispersion is measurable and trackable** — quantifying it over time is what the [GraphQL API](/api/) exposes.
 
 ## Citing this work

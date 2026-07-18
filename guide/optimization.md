@@ -1,6 +1,21 @@
 # The optimizer
 
-The optimizer turns a clean cross-protocol rate feed into a short list of **actions worth taking**. It answers one question: _given what you hold, where should your capital sit?_
+The optimizer turns standardized, comparable rates into an answer to one question: _given what you hold, where should your capital sit?_
+
+## From comparison to allocation
+
+Standardized APYs make markets comparable; the optimizer makes them **actionable**. In the app, you select the markets you're considering, then configure two inputs:
+
+- **Risk profile** — how much yield you want to chase:
+  | Profile | Behavior |
+  | --- | --- |
+  | **Conservative** | Lower risk, stable yields, high diversification |
+  | **Balanced** | Optimized risk/reward |
+  | **Aggressive** | Max yield, concentrated where rates are highest |
+
+- **Investment horizon** — how long the capital stays deployed: **1D**, **7D**, **1M**, or **1Y**. The horizon decides which APY series ranks the markets — a spot rate for a day trade, the 1-month or 1-year average for capital that stays put. A market spiking today but flat over 30 days ranks well for a short horizon and poorly for a long one.
+
+The output is an **allocation across the selected markets** — how to split the capital, matched to those two inputs.
 
 ## The core insight: same asset, different yield
 
@@ -16,7 +31,7 @@ and ranks assets by that spread. A wide spread on a large, liquid asset is the s
 
 ## What the optimizer surfaces
 
-The optimizer runs over the normalized daily dataset and highlights a rotating set of stories:
+Beyond allocations, the optimizer runs over the standardized daily dataset and highlights a rotating set of stories:
 
 | Signal | What it finds | Why it matters |
 | --- | --- | --- |
@@ -40,7 +55,7 @@ The optimizer only ever compares **net** APY, because a base rate and a net rate
 - **Supply net** = base − fees + rewards
 - **Borrow net** = base + fees − rewards
 
-Two markets quoting "5%" can differ by hundreds of basis points once rewards and fees are accounted for. By normalizing everything to net before ranking, the optimizer compares what you actually earn or pay — not what a protocol chose to advertise.
+Two markets quoting "5%" can differ by hundreds of basis points once rewards and fees are accounted for. By standardizing everything to net before ranking, the optimizer compares what you actually earn or pay — not what a protocol chose to advertise.
 
 ## From signal to action
 

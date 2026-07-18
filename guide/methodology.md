@@ -4,13 +4,14 @@ Every rate Lendwise shows is produced by the same pipeline, so numbers are compa
 
 ## Sources
 
-For each protocol, Lendwise reads from the most authoritative source available and reconciles on-chain and off-chain data:
+Each protocol has a dedicated adapter that reads from the most authoritative source available and transforms it into the Lendwise standard:
 
-- **Aave V3** — protocol subgraphs + on-chain reserve data.
-- **Morpho** — Blue markets and MetaMorpho vaults via the Morpho API + on-chain.
-- **Compound V3** — per-chain subgraphs (schemas differ by chain) + on-chain.
+- **Aave V3** — the official Aave GraphQL API (`api.v3.aave.com`).
+- **Morpho** — Blue markets and MetaMorpho vaults via the official Morpho API (`api.morpho.org`).
+- **Compound V3** — per-chain subgraphs on The Graph (subgraph schemas differ by chain; each chain has its own queries where needed).
+- **Reward incentives** — protocol emissions plus **Merkl** campaigns, reconciled per market.
 
-When multiple sources are aggregated, one source failing never blocks the others — partial data is better than no data.
+When multiple sources are aggregated, one source failing never blocks the others — partial data is better than no data. The adapter architecture is open source: see the [adapter guide](https://github.com/lendwise-fi/lendwise/blob/main/src/lib/protocols/README.md) if you want to add a protocol.
 
 ## Cadence
 
@@ -21,6 +22,7 @@ Daily (00:10 UTC)  → aggregate the day's hourly rows → apy_daily
 
 - **Hourly** rows are a running average per market per hour — resilient to a single noisy read.
 - **Daily** rows are a single averaged value per market per day, and carry a **completeness** score: how many of the day's expected hourly slots were actually captured. Days below the reliability threshold are flagged and excluded from comparisons.
+- Gaps are detected and healed automatically; healed values are marked as such internally.
 
 ## APR → APY
 
@@ -41,13 +43,14 @@ All rates are stored and compared as **net APY**, direction-aware:
 
 Each rate also keeps its full breakdown — base, total rewards, fees, and every individual reward token (with source: protocol, Merkl, or Merit) — so you can audit any headline number.
 
-## Normalization rules
+## Standardization rules
 
-A few rules keep cross-protocol data honest:
+A few rules keep the standard honest across protocols:
 
 - **Chains are identified by chain ID, never by name.** Adapters spell the same chain differently ("Ethereum" vs "ethereum"); only the numeric chain ID is canonical.
 - **Product identity is structured, not parsed.** Every market has typed fields — provider, chain, asset, kind (supply/borrow) — rather than a string that gets sliced. Filters hit indexed columns, not substrings.
 - **Rates are always APY.** No mixing of APR and APY anywhere in the dataset.
+- **Every adapter passes the same conformance harness** — live validation of shapes, magnitudes, and product-set consistency before its data ships.
 
 ## Known limitations
 

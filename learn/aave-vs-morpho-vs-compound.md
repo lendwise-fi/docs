@@ -42,7 +42,7 @@ Compound V3 ("Comet") organizes around a **single borrowable base asset** per de
 
 **Where it wins:** clean, capital-efficient borrowing of the base asset. If your goal is "borrow USDC against ETH cheaply," a Compound V3 market is often the most straightforward, gas-efficient route.
 
-**Watch for:** you supply the base asset to earn; other assets earn nothing (they're collateral only). And subgraph schemas differ by chain, which is exactly the kind of inconsistency Lendwise normalizes away for you.
+**Watch for:** you supply the base asset to earn; other assets earn nothing (they're collateral only). And subgraph schemas differ by chain, which is exactly the kind of inconsistency Lendwise's one standard removes for you.
 
 ## So which should you use?
 
@@ -57,7 +57,7 @@ The real answer is: **don't pick a protocol, pick a market.** The best venue for
 
 ## Compare them the honest way
 
-The only fair comparison normalizes all three to **net APY** with rewards converted APR→APY and fees netted — otherwise you're comparing numbers the protocols computed differently. That normalization is the whole point of Lendwise: every Aave, Morpho, and Compound market, side by side, computed the same way.
+The only fair comparison puts all three on one standard: **net APY** with rewards converted APR→APY and fees netted — otherwise you're comparing numbers the protocols computed differently. That standardization is the whole point of Lendwise: every Aave, Morpho, and Compound market, side by side, computed the same way.
 
 ---
 

@@ -3,8 +3,8 @@ layout: home
 
 hero:
   name: Lendwise
-  text: DeFi lending yield, one view.
-  tagline: Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains — with live, methodologically consistent APY.
+  text: One standard for DeFi lending.
+  tagline: Compare standardized net APYs across Aave, Morpho, and Compound on 8 chains — and optimize your allocation by risk profile and investment horizon.
   actions:
     - theme: brand
       text: What is Lendwise
