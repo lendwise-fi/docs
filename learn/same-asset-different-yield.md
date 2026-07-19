@@ -13,7 +13,7 @@ That gap isn't a glitch. It's a structural feature of how DeFi lending is organi
 
 Hello
 
-$r_{base}$
+$$r_{base}$$
 
 ## Why the gap exists
 
