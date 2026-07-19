@@ -1,16 +1,17 @@
 ---
-title: 'Same asset, different yield: the biggest inefficiency in DeFi lending'
+title: "Same asset, different yield: the biggest inefficiency in DeFi lending"
+description: Why USDC pays 4.9% in one place and 6.8% in another at the same
+  moment — and how to capture the gap without taking on new risk.
 date: 2026-07-08
 author: Lendwise
-description: Why USDC pays 4.9% in one place and 6.8% in another at the same moment — and how to capture the gap without taking on new risk.
 ---
-
 # Same asset, different yield: the biggest inefficiency in DeFi lending
-
 
 Here's a number that should bother you more than it does: at almost any moment, the exact same stablecoin earns wildly different yields depending on where you park it. USDC might pay **4.9%** on one lending market and **6.8%** on another — for holding the identical asset, at the identical time.
 
 That gap isn't a glitch. It's a structural feature of how DeFi lending is organized, and it's the single largest source of quietly leaked yield for on-chain lenders.
+
+$$r_{base}$$
 
 ## Why the gap exists
 
@@ -22,7 +23,7 @@ Lending markets are fragmented three ways at once:
 
 Capital doesn't instantly flow to close these gaps, because moving it costs gas, attention, and a mental tax most people never pay. So the spread persists.
 
-## Why it's the _lowest-risk_ yield in DeFi
+## Why it's the *lowest-risk* yield in DeFi
 
 Most ways to earn more yield mean taking on more risk: a riskier asset, a longer lockup, a newer protocol, leverage. Capturing the same-asset spread means **none of that**. You already hold the asset. You already accept lending risk. You're just choosing a better venue for the same position.
 
@@ -61,4 +62,4 @@ If your stablecoins are sitting in "a lending protocol" rather than "the best le
 
 **See where your capital should sit → [lendwise.fi](https://lendwise.fi)**
 
-_Not financial advice. DeFi lending carries smart-contract, oracle, and market risk._
+*Not financial advice. DeFi lending carries smart-contract, oracle, and market risk.*
