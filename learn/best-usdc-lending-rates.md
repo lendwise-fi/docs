@@ -1,78 +1,55 @@
 ---
-title: The best USDC lending rates right now (and how to read them)
-titleShort: Best USDC lending rates
+title: How collateralized loans actually work in DeFi
+description: Collateral, borrowing limits and liquidations in DeFi.
 date: 2026-07-07
 author: Lendwise
-description: A practical guide to finding the top stablecoin supply rate across Aave, Morpho, and Compound — and why the highest headline number often isn't the best one.
 ---
+## How collateralized loans work in DeFi
 
-# The best USDC lending rates right now (and how to read them)
+Every collateralized loan follows the same principle: deposit an asset as collateral, borrow against part of its value, and risk liquidation if the position becomes undercollateralized. In DeFi, these rules are enforced entirely by smart contracts rather than by a centralized intermediary. While Aave V3, Compound V3 and Morpho Blue all follow this model, they make very different design choices that directly affect risk, capital efficiency and user experience.
 
+# Managing collateral
 
-USDC is the default parking spot for on-chain dollars, which makes "where do I get the best USDC lending rate?" one of the most-asked questions in DeFi. The honest answer is: _it depends on the day, the chain, and how you read the number_. This is how to answer it for yourself, every time.
+Collateral can be handled in two ways. It can either remain idle, serving only as security, or it can be lent out while simultaneously backing the borrower's debt. This second approach is known as collateral rehypothecation, and it is one of the main architectural differences between lending protocols.
 
-## Where USDC lending rates come from
+Aave V3 rehypothecates collateral by default. Deposited assets immediately enter the shared liquidity pool used by borrowers, allowing them to earn interest from the moment they are supplied. Enabling an asset as collateral does not change this behavior: the asset continues earning yield while securing the borrower's debt. Aave also supports cross-collateralization, allowing multiple supplied assets to jointly secure a single borrowing position.
 
-When you supply USDC to a lending market, borrowers pay to borrow it, and that interest flows to you. Three things move the rate:
+Two features refine this default behavior. Isolation Mode limits newer or riskier assets by allowing them to act only as standalone collateral, subject to a debt ceiling and a restricted set of borrowable assets. eMode targets highly correlated assets, such as stablecoins or ETH derivatives, by increasing both borrowing capacity and liquidation thresholds within the same category.
 
-1. **Utilization** — the share of supplied USDC that's currently borrowed. Higher utilization → higher supply rate.
-2. **The interest-rate model** — each protocol maps utilization to a rate differently.
-3. **Rewards** — extra incentives (protocol emissions, Merkl, Merit) paid on top of the organic rate.
+Compound V3 does not rehypothecate collateral. Each deployment revolves around a single borrowable asset, while every collateral asset remains locked as security, earning no yield and never being lent to other users.
 
-The big three venues Lendwise tracks — **Aave V3**, **Morpho** (Blue markets + MetaMorpho vaults), and **Compound V3** — each combine these differently, so the same USDC lands at different rates.
+Morpho Blue also does not rehypothecate collateral, as every market consists of a single collateral asset paired with a single loan asset. A borrower using the wstETH/USDC market, for example, is completely isolated from every other market. There is no cross-collateralization, no shared collateral pool, and no risk sharing across markets. Borrowing against multiple collateral assets simply means opening independent positions in separate markets.
 
-## The trap: the highest number isn't always the best
+Morpho Vaults improve the depositor experience without changing this architecture. A curator allocates users' deposits across multiple Morpho markets sharing the same loan asset according to predefined allocation limits. Depositors benefit from a single, Aave-like deposit experience, while the underlying markets remain fully isolated.
 
-Before you chase a headline APY, three checks:
+# How much you can borrow
 
-### 1. Is it net or base?
-A market advertising "8% APY" including a temporary reward program isn't the same as 8% organic yield. Rewards can end. Look at the **base** rate to know what you'll earn when incentives stop, and the **net** rate for what you earn today. Lendwise always shows net, with the breakdown one click away.
+Every collateralized loan defines a maximum amount that can be borrowed against a given collateral value. This limit is expressed through the maximum loan-to-value ratio, usually written as `maxLTV`. For example, with a `maxLTV` of 70%, depositing $100 of Bitcoin allows borrowing up to $70.
 
-### 2. Is the market big enough to matter?
-A tiny market can spike to an absurd rate because one borrower drew it to 99% utilization. That rate is real for about an hour. If you can't deploy meaningful size without moving the rate yourself — or you'd struggle to withdraw when utilization is high — the headline is a mirage. Prefer deep, liquid markets.
+`max_borrow = collateral_value × maxLTV`
 
-### 3. Is the APY even comparable?
-Reward APR quoted next to base APY is an apples-to-oranges number. The only fair comparison converts everything to **compounded APY** and nets fees. (See our [methodology](/guide/methodology).)
+Compound V3 follows the same approach, with a dedicated `maxLTV` defined for each collateral asset.
 
-## A repeatable way to find the best rate
+Morpho Blue does not define a separate `maxLTV`. Unlike Aave and Compound, there is no protocol-imposed borrowing limit below the liquidation threshold. Borrowers, or vault curators acting on their behalf, are responsible for maintaining their own safety margin.
 
-Every time, do this:
+# Liquidation and `LLTV`
 
-1. **Filter to USDC** across all protocols and chains.
-2. **Sort by net APY**, descending.
-3. **Sanity-check the top few**: is the market large? Is the rate mostly organic or mostly rewards? What's utilization?
-4. **Pick the best _durable_ rate**, not just the biggest number.
+`LLTV` (Liquidation Loan-to-Value) defines the point at which a position becomes eligible for liquidation.
 
-You can do this by hand across a dozen dashboards, or let [Lendwise](https://lendwise.fi) do steps 1–3 in one view — it standardizes every market to net APY and filters out dust automatically.
+Continuing the previous example, a borrower opening a position with a `maxLTV` of 70% and an `LLTV` of 80% can initially borrow up to $70 against $100 of Bitcoin. If Bitcoin's price later falls and the debt reaches 80% of the collateral's value, the position becomes liquidatable. A liquidator repays part of the debt in exchange for purchasing the collateral at a discount.
 
-## Query it programmatically
+Aave and Compound intentionally separate `maxLTV` from `LLTV`, creating a safety buffer between the maximum borrowing limit and the liquidation threshold. Morpho Blue has no such distinction: because there is no `maxLTV`, `LLTV` is the only borrowing constraint.
 
-If you're building an alert or a dashboard, the [GraphQL API](/api/graphql) returns the ranked list directly:
+# Adjustable or immutable risk parameters
 
-```graphql
-{
-  supplyApyDaily(
-    filters: { asset: "USDC" }
-    first: 5
-    orderBy: "net"
-    orderDirection: desc
-  ) {
-    items {
-      protocol
-      chainId
-      apy { net base rewards }
-      market { supplyAssetsUsd utilizationRate }
-    }
-  }
-}
-```
+On Aave and Compound, both `maxLTV` and `LLTV` are governance parameters that can be updated after a market is launched as market conditions evolve.
 
-## Bottom line
+Morpho Blue follows a different philosophy. A market's `LLTV` is fixed when the market is created and cannot be modified afterward, regardless of future governance decisions.
 
-The "best USDC rate" is a moving target, and the biggest number on the screen is frequently the wrong answer. Compare **net APY**, weight it against **market depth**, and check how much is **organic vs. rewards**. Do that and you'll consistently beat the lender who just clicked the first high number they saw.
+# Comparing lending markets
 
----
+Comparing lending markets goes far beyond comparing headline APYs. The yield offered by a market is only one side of the equation; understanding the underlying risks is equally important.
 
-**Compare every USDC market in one view → [lendwise.fi](https://lendwise.fi)**
+Two markets may offer the same APY while exposing users to very different risks. Collateral management, rehypothecation, liquidation rules and governance all shape the risk profile of a lending market.
 
-_Not financial advice. DeFi lending carries smart-contract, oracle, and market risk._
+A meaningful comparison therefore requires evaluating both return and risk, rather than looking at yield alone.
