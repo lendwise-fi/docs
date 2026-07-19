@@ -11,6 +11,8 @@ Here's a number that should bother you more than it does: at almost any moment, 
 
 That gap isn't a glitch. It's a structural feature of how DeFi lending is organized, and it's the single largest source of quietly leaked yield for on-chain lenders.
 
+Hello
+
 $$r_{base}$$
 
 ## Why the gap exists
