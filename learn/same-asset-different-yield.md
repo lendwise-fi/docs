@@ -14,6 +14,7 @@ That gap isn't a glitch. It's a structural feature of how DeFi lending is organi
 Hello
 
 $$r_{base}$$
+`(1 + APR/365)^365 − 1`
 
 ## Why the gap exists
 
