@@ -2,9 +2,18 @@
 
 Connect an AI agent to Lendwise. [`@lendwise/mcp`](https://github.com/lendwise-fi/lendwise-mcp) exposes the standardized dataset through five curated [Model Context Protocol](https://modelcontextprotocol.io) tools, so an agent can answer *"I have $1,000 to place in DeFi for the next 6 months — what are the best markets?"* against real yield data in about four tool calls.
 
-Read-only by design: it recommends, it never signs a transaction. No API key — the server holds no secrets and speaks only HTTPS to the public Lendwise API.
+Read-only by design: it compares markets, it never signs a transaction. No API key — the server holds no secrets and speaks only HTTPS to the public Lendwise API.
 
 ## Install
+
+### Claude Code plugin (easiest)
+
+Installs the hosted server plus a `/lendwise:find-yield` skill in two commands — no config, no API key:
+
+```bash
+/plugin marketplace add lendwise-fi/lendwise-mcp
+/plugin install lendwise@lendwise-fi
+```
 
 ### Hosted (Streamable HTTP)
 
