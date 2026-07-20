@@ -1,66 +1,50 @@
 ---
-title: 'Aave vs Morpho vs Compound: how the big three lending protocols actually differ'
+title: Understanding DeFi interest rate conventions
+description: "APR, APY, compounding, time windows, incentives and fees: the key
+  conventions behind DeFi lending rates."
 date: 2026-07-06
 author: Lendwise
-image: /images/test.png
-description: A no-hype comparison of the three protocols Lendwise tracks — architecture, rates, rewards, and when each one wins.
 ---
+## Understanding DeFi interest rate conventions
 
-# Aave vs Morpho vs Compound: how the big three lending protocols actually differ
+A displayed interest rate in DeFi is never just a single number. It can represent a simple annual rate or a compounded return, a spot market condition or an average over time, and a base yield or a rate boosted by incentives. Two protocols showing the same headline percentage may therefore represent very different economic realities. Understanding the convention behind the number is essential before comparing lending markets.
 
+# APR, APY and compounding
 
-Aave, Morpho, and Compound are the three largest lending venues in DeFi, and Lendwise tracks all of them. They're often lumped together as "money markets," but they're built on genuinely different designs — and those differences show up in the rate you earn or pay. Here's the practical breakdown, no maximalism.
+`APR` represents the annualized interest rate before accounting for compounding. It is simply the periodic interest rate extrapolated over one year. `APY` incorporates the effect of compounding, where earned interest is added back to the principal and generates additional returns.
 
-## The one-line summary
+The relationship between APR and APY depends on the compounding frequency:
 
-| | **Aave V3** | **Morpho** | **Compound V3** |
-| --- | --- | --- | --- |
-| Model | Shared liquidity pool | Isolated markets + curated vaults | Single-borrow-asset markets |
-| Risk isolation | Per-asset params, shared pool | Fully isolated per market | Isolated per deployment |
-| Who sets risk | Aave governance | Market creators / vault curators | Compound governance |
-| Best at | Breadth, depth, many assets & chains | Efficiency, tailored risk, vault yield | Simple, capital-efficient borrowing |
+`APY = (1 + APR/n)^n − 1`
 
-## Aave V3 — the liquidity giant
+where `n` is the number of compounding periods per year. As the compounding frequency increases, APY approaches the continuous compounding case:
 
-Aave is the broadest and deepest of the three: the most assets, the most chains, and the largest pools. Suppliers deposit into a shared pool; borrowers draw against it with per-asset risk parameters set by governance.
+`APY = e^(APR) − 1`
 
-**Where it wins:** depth and coverage. If you want to lend a less common asset, or deploy real size without moving the rate, Aave usually has the market. It's live on the most chains Lendwise tracks — including Avalanche, Linea, and BSC, where it's often the only option.
+DeFi protocols use different approaches to apply compounding. Aave V3 and Compound V3 use hourly compounding, while Morpho Blue applies continuous compounding.
 
-**Watch for:** because liquidity is shared and governance-managed, rates are "market average" rather than tailored — sometimes leaving efficiency on the table versus a well-curated isolated market.
+# The time window behind the rate
 
-## Morpho — the efficiency layer
+Every `APY` also depends on the time period over which it is measured. A spot rate represents the current market conditions at a specific block and can change immediately as supply and demand evolve. A large deposit, withdrawal, or borrowing event can significantly modify utilization and therefore the displayed rate.
 
-Morpho reimagines lending as **isolated markets** (Morpho Blue) plus **curated vaults** (MetaMorpho) that allocate across them. Each market is a single collateral/loan pair with its own risk parameters; vaults let a curator route deposits to the best mix of those markets.
+To reduce this volatility, many interfaces and aggregators display averaged rates over a predefined window, such as 6 hours, 24 hours, or 30 days. These averages provide a smoother view of the market but represent a different measurement from a spot rate.
 
-**Where it wins:** capital efficiency and tailored risk. Isolated markets mean a bad asset can't contaminate the rest, and curated vaults can chase the best risk-adjusted yield actively. This often produces the **highest net supply rates** for stablecoins — a big reason Morpho frequently tops the [same-asset spread](/learn/same-asset-different-yield).
+The time window is therefore a critical part of any rate comparison. A current `APY` from one protocol and a 30-day average `APY` from another are not directly comparable, even if they display the same label.
 
-**Watch for:** you're trusting a market's or vault's risk configuration. Read who curates it and what it holds. More upside, more homework.
+# Rewards, incentives and fees
 
-## Compound V3 — focused and capital-efficient
+The displayed rate is not always the base lending yield generated by borrower demand. Many protocols add token incentives on top of the underlying interest rate, creating a higher headline APY.
 
-Compound V3 ("Comet") organizes around a **single borrowable base asset** per deployment (e.g. USDC), with other assets usable only as collateral. It's a deliberately narrower design than the sprawling Compound V2.
+These two components represent different sources of return. The base yield reflects actual borrowing activity within the market, while incentive rewards usually come from temporary distribution programs and depend on the value of the reward token itself.
 
-**Where it wins:** clean, capital-efficient borrowing of the base asset. If your goal is "borrow USDC against ETH cheaply," a Compound V3 market is often the most straightforward, gas-efficient route.
+Fees also affect the final return received by lenders. Protocol fees, performance fees, or vault management fees reduce the effective yield. For example, Morpho's protocol fee is deducted from borrower interest before the resulting Supply `APY` is calculated.
 
-**Watch for:** you supply the base asset to earn; other assets earn nothing (they're collateral only). And subgraph schemas differ by chain, which is exactly the kind of inconsistency Lendwise's one standard removes for you.
+Understanding the breakdown between base yield, incentives, and fees is therefore essential when comparing advertised rates across protocols.
 
-## So which should you use?
+# What this means when comparing rates
 
-There's no universal winner — it depends on the position:
+A single percentage can hide several underlying assumptions: the compounding method, the measurement window, and the composition of the displayed yield.
 
-- **Lending stablecoins for max yield?** Compare Morpho vaults against Aave; the winner rotates.
-- **Lending a long-tail asset, or deploying size?** Aave's depth usually wins.
-- **Borrowing the base asset cheaply against blue-chip collateral?** Check Compound V3 first.
-- **On Avalanche, Linea, or BSC?** Today that's Aave.
+Two markets showing the same `APY` may differ significantly in how that return is generated, how stable it is, and what risks are embedded in it. A proper comparison requires looking beyond the headline number and separating the base rate, compounding convention, time window, incentives, and fees.
 
-The real answer is: **don't pick a protocol, pick a market.** The best venue for _your_ asset changes daily, and loyalty to a single protocol is how you leave yield on the table.
-
-## Compare them the honest way
-
-The only fair comparison puts all three on one standard: **net APY** with rewards converted APR→APY and fees netted — otherwise you're comparing numbers the protocols computed differently. That standardization is the whole point of Lendwise: every Aave, Morpho, and Compound market, side by side, computed the same way.
-
----
-
-**Compare all three in one view → [lendwise.fi](https://lendwise.fi)**
-
-_Not financial advice. DeFi lending carries smart-contract, oracle, and market risk._
+Only once these components are aligned does comparing two lending rates become a meaningful comparison.
