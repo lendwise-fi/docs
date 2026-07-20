@@ -44,3 +44,5 @@ Every list query supports **filters** (protocol, chain, asset, market, TVL floor
 - **Dust is filtered by default** — pools below the TVL floor and absurd rates are excluded; pass `includeIneligible: true` for raw data.
 
 Continue to [Schema & queries](/api/graphql) for the full type reference and copy-paste examples.
+
+Building with an AI agent instead of writing queries by hand? The [MCP server](/api/mcp) exposes this same data as five curated tools.

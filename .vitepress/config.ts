@@ -122,8 +122,11 @@ export default defineConfig({
   },
 
   title: 'Lendwise',
+  // No chain count here on purpose: this is a static string (the stats.data.ts
+  // loader only interpolates into pages/components, not config), so a hardcoded
+  // number would rot. Pages state live counts via {{ stats.* }} instead.
   description:
-    'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound on 8 chains.',
+    'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound.',
   lang: 'en-US',
   // Served under https://lendwise.fi/docs via a rewrite in the dashboard project
   base: '/docs/',
@@ -215,10 +218,11 @@ export default defineConfig({
       ],
       '/api/': [
         {
-          text: 'GraphQL API',
+          text: 'API',
           items: [
             { text: 'Overview', link: '/api/' },
             { text: 'Schema & queries', link: '/api/graphql' },
+            { text: 'MCP server', link: '/api/mcp' },
           ],
         },
       ],
