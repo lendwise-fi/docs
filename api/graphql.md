@@ -10,7 +10,7 @@ type Query {
   latestSupplyApy(filters: LatestFilters, first: Int = 100, skip: Int = 0,
                   orderBy: SupplyApyOrderBy = apyNet, orderDirection: OrderDirection = desc): SupplyHourlyResponse!
   latestBorrowApy(filters: LatestBorrowFilters, first: Int = 100, skip: Int = 0,
-                  orderBy: BorrowApyOrderBy = apyNet, orderDirection: OrderDirection = desc): BorrowHourlyResponse!
+                  orderBy: BorrowApyOrderBy = apyNet, orderDirection: OrderDirection = asc): BorrowHourlyResponse!
 
   # Time series. `first` is capped at 500.
   supplyApyHourly(filters: HourlyFilters, first: Int = 100, skip: Int = 0,
@@ -129,12 +129,7 @@ Take the first and last `net` — that gap is the [optimizer's](/guide/optimizat
 
 ```graphql
 {
-  latestBorrowApy(
-    filters: { asset: "USDC", collateral: "WETH" }
-    first: 5
-    orderBy: apyNet
-    orderDirection: asc
-  ) {
+  latestBorrowApy(filters: { asset: "USDC", collateral: "WETH" }, first: 5) {
     items {
       protocol
       chainId
@@ -145,6 +140,8 @@ Take the first and last `net` — that gap is the [optimizer's](/guide/optimizat
   }
 }
 ```
+
+(Default ordering is already `apyNet` **ascending** — borrow net is a cost, so cheapest is best. This is the mirror of `latestSupplyApy`, which defaults to descending.)
 
 ### 30-day net APY history for one market
 

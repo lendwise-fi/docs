@@ -50,9 +50,9 @@ Requires Node ≥ 24.
 | Tool | Arguments | Returns |
 | --- | --- | --- |
 | `list_market_universe` | `kind?` (`supply` \| `borrow`, default `supply`) | Every asset, chain and protocol Lendwise tracks, with counts. **Call this first** — filter values for the other tools come from here, not from memory. |
-| `find_best_markets` | `asset?`, `chainId?`, `protocol?` (`aave` \| `morpho` \| `compound`), `minTvlUsd?` (default `1000000`), `limit?` (default 10, max 50) | Current supply markets ranked by net APY. Filtering and sorting run server-side against the latest snapshot. |
-| `get_market_details` | `productId` | One market in full: protocol metadata, accepted collaterals, and the current APY split into base / rewards / fees with individual reward items. |
-| `get_market_history` | `productId`, `range?` (`7d` \| `30d` \| `90d` \| `180d`, default `90d`) | Daily net-APY series **plus mean / stddev / min / max** — the stability signal a long horizon needs. |
+| `find_best_markets` | `kind?` (`supply` \| `borrow`, default `supply`), `asset?`, `chainId?`, `protocol?` (`aave` \| `morpho` \| `compound`), `collateral?` (borrow only), `minTvlUsd?` (default `1000000`), `limit?` (default 10, max 50) | Current markets ranked by net APY. Supply ranks highest-first (most earned); borrow ranks **lowest-first** (cheapest cost). Borrow rows also carry `borrowedUsd` and accepted `collaterals`. Filtering and sorting run server-side against the latest snapshot. |
+| `get_market_details` | `productId` | One market in full: protocol metadata, accepted collaterals, and the current APY split into base / rewards / fees with individual reward items. Handles supply and borrow productIds alike. |
+| `get_market_history` | `productId`, `kind?` (`supply` \| `borrow`, default `supply`), `range?` (`7d` \| `30d` \| `90d` \| `180d`, default `90d`) | Daily net-APY series **plus mean / stddev / min / max** — the stability signal a long horizon needs. For borrow it measures how much the cost moves, not the yield. |
 | `optimize_allocation` | `amountUsd`, `productIds` (2–20 markets), `diversification?` (0–100, default 80) | Per-market dollar amounts, blended APY, and a projected 6-month yield, computed by the Lendwise optimizer. |
 
 ## The intended flow
@@ -65,6 +65,7 @@ Requires Node ≥ 24.
 ## Defaults that matter
 
 - **`find_best_markets` defaults to `minTvlUsd: 1000000`.** In a thin market a headline APY is mostly noise; the floor can be lowered deliberately, never silently.
+- **Supply and borrow rank in opposite directions.** Borrow net APY is a cost (`base + fees − rewards`), so `kind: borrow` ranks the cheapest market first — the reverse of supply. To narrow a borrow search by collateral, take a `collateral` value from the `collaterals` on returned borrow rows rather than guessing.
 - **`get_market_history` returns statistics, not just a series.** A snapshot cannot tell a durable yield from a reward programme that ends next week; a 180-day standard deviation can.
 - **Data quality is surfaced, not hidden.** Every response carries the snapshot timestamp (`asOf`), rows with poor slot completeness are flagged `reliable: false`, and markets with no usable APY are reported as missing — never defaulted to 0.
 
