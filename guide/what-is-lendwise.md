@@ -30,13 +30,13 @@ Standardized rates are the foundation for smart capital allocation. Our [optimiz
 
 - **Lenders** looking for attractive yields across markets.
 - **Borrowers** seeking to reduce borrowing costs across protocols and chains.
-- **Analysts and builders** accessing standardized lending and borrowing data through the [GraphQL API](/api) and our [MCP server](/api/mcp).
+- **Analysts and builders** accessing standardized lending and borrowing data through the [GraphQL API](/api/graphql) and our [MCP server](/api/mcp).
 
 ## Where to go next
 
 - **[Getting started](/guide/getting-started)** - explore lending markets and compare rates.
 - **[The optimizer](/guide/optimization)** - understand how capital allocations are calculated.
-- **[GraphQL API](/api/)** - access standardized data.
+- **[GraphQL API](/api/graphql)** - access standardized data.
 - **[MCP server](/api/mcp)** - integrate Lendwise into your applications.
 
 <br />

@@ -21,7 +21,7 @@ Connect your wallet to monitor your lending and borrowing positions across proto
 
 ## 4. Build with the data
 
-The data powering Lendwise is available through the [GraphQL API](/api). Use it to build alerts, dashboards or allocation tools. Public queries do not require an API key.
+The data powering Lendwise is available through the [GraphQL API](/api/graphql). Use it to build alerts, dashboards or allocation tools. Public queries do not require an API key.
 
 ## Next
 
