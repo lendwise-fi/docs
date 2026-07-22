@@ -1,64 +1,59 @@
 # The optimizer
 
-The optimizer turns standardized, comparable rates into an answer to one question: _given what you hold, where should your capital sit?_
+Lendwise turns standardized rates into capital allocation. Based on the selected markets, risk profile and investment horizon, the optimizer determines how capital should be split across markets.
 
-## From comparison to allocation
+## Investment horizon
 
-Standardized APYs make markets comparable; the optimizer makes them **actionable**. In the app, you select the markets you're considering, then configure two inputs:
+For both lending and borrowing, the user selects an investment horizon of 1D, 7D, 1M or 1Y. The investment horizon determines the APY window used to evaluate each market. Shorter horizons reflect more recent rates, while longer horizons provide a more stable view of historical performance.
 
-- **Risk profile** — how much yield you want to chase:
-  | Profile | Behavior |
-  | --- | --- |
-  | **Conservative** | Lower risk, stable yields, high diversification |
-  | **Balanced** | Optimized risk/reward |
-  | **Aggressive** | Max yield, concentrated where rates are highest |
+## Lending side
 
-- **Investment horizon** — how long the capital stays deployed: **1D**, **7D**, **1M**, or **1Y**. The horizon decides which APY series ranks the markets — a spot rate for a day trade, the 1-month or 1-year average for capital that stays put. A market spiking today but flat over 30 days ranks well for a short horizon and poorly for a long one.
+The user first selects an asset to lend, such as USDC, and a risk profile associated with a level of diversification:
 
-The output is an **allocation across the selected markets** — how to split the capital, matched to those two inputs.
+- **Conservative**: lower risk, stable yields and higher diversification.
+- **Balanced**: optimized risk/reward with moderate diversification.
+- **Aggressive**: maximum yield, higher risk and limited diversification.
 
-## The core insight: same asset, different yield
+The optimizer allocates the selected asset across eligible markets on different protocols and chains. It maximizes expected yield while satisfying the diversification level associated with the selected risk profile.
 
-The same token pays different rates in different places at the same moment. USDC might earn 4.9% on one protocol and 6.8% on another — for holding **the identical asset**. That gap is the single largest, lowest-risk source of leaked yield in DeFi lending, because you're not taking on a new asset or a new risk category to capture it — just a better venue.
+## Borrowing side
 
-Lendwise computes, per asset, the **widest spread** between its best and worst qualifying venue:
+The user first selects a loan asset, such as USDC, and a collateral asset, such as WBTC. The borrowing optimizer determines borrowing positions across eligible markets based on the user’s objective and risk profile.
 
-```
-spread = best_net_apy − worst_net_apy
-```
+### Price buffer and initial LTV
 
-and ranks assets by that spread. A wide spread on a large, liquid asset is the strongest "you're in the wrong market" signal there is.
+A borrowing position becomes eligible for liquidation when a decline in the collateral value causes its LTV to reach the market’s liquidation LTV. The price buffer defines the decline in the collateral price that the position is able to absorb before reaching this threshold.
 
-## What the optimizer surfaces
+Lendwise recommends a minimum buffer based on the worst daily return of the collateral asset relative to the loan asset observed over the previous year:
 
-Beyond allocations, the optimizer runs over the standardized daily dataset and highlights a rotating set of stories:
+**Minimum recommended buffer = −min(0%, minimum daily return over one year)**
 
-| Signal | What it finds | Why it matters |
-| --- | --- | --- |
-| **Widest spread** | The asset with the largest best-vs-worst net-APY gap across venues | The clearest arbitrage of your own capital — same asset, more yield |
-| **Best stablecoin yield** | The highest net supply APY among stablecoin markets | Where idle stables should go today |
-| **Biggest mover** | The market whose net APY changed most since yesterday | Rates that just repriced — opportunity or warning |
-| **Biggest market** | The largest supply market by TVL | Deep, liquid venues where size can move without slippage |
+When borrowing USDC against WBTC, for example, the recommendation is based on the daily returns of the WBTC price expressed in USDC. If the worst daily return over the previous year was −30%, the minimum recommended buffer is 30%.
 
-## Quality gates
+Each market has its own liquidation LTV. Lendwise uses this threshold and the selected buffer to calculate a suggested initial LTV for each borrowing position:
 
-Not every high number is a real opportunity. A tiny pool spiking to 30% because one whale borrowed against it is noise, not yield. The optimizer filters aggressively before surfacing anything:
+**Initial LTV = liquidation LTV × (1 − buffer)**
 
-- **Minimum market size** — markets below a TVL floor are ignored, so dust pools with anomalous rates never headline.
-- **Data completeness** — a day is only used if enough hourly observations were collected for it; thin days are marked unreliable and dropped.
-- **Direction-aware** — supply and borrow are never mixed; a "best rate" for a lender is computed only from supply markets.
+A larger buffer therefore results in a lower initial LTV. The user can adjust both the buffer and the initial LTV calculated for each market.
 
-## Why net APY, always
+### Optimization objective
 
-The optimizer only ever compares **net** APY, because a base rate and a net rate are different currencies:
+The user then chooses between two optimization inputs: a target loan amount or an available collateral amount.
 
-- **Supply net** = base − fees + rewards
-- **Borrow net** = base + fees − rewards
+**Target loan amount**
 
-Two markets quoting "5%" can differ by hundreds of basis points once rewards and fees are accounted for. By standardizing everything to net before ranking, the optimizer compares what you actually earn or pay — not what a protocol chose to advertise.
+The user specifies the amount to borrow, for example 100,000 USDC. The optimizer returns a range of optimal borrowing positions between two objectives:
 
-## From signal to action
+- **Minimum borrowing cost**: minimizes the overall borrowing cost for the target loan amount.
+- **Minimum collateral**: minimizes the amount of collateral required to borrow the target loan amount.
 
-Each surfaced signal is a concrete, executable move: _"USDC pays 4.9% here and 6.8% there — move it."_ Lendwise identifies the opportunity; you execute it on the underlying protocol. See [Getting started](/guide/getting-started) for the workflow.
+Intermediate solutions represent different trade-offs between borrowing cost and collateral requirements.
 
-For the exact ingestion, aggregation, and APY-conversion rules behind these numbers, see [Data & methodology](/guide/methodology).
+**Available collateral**
+
+The user specifies the amount of collateral available, for example 1 WBTC. The optimizer returns a range of optimal borrowing positions between two objectives:
+
+- **Minimum borrowing cost**: minimizes the overall borrowing cost using the available collateral.
+- **Maximum loan**: maximizes the amount that can be borrowed using the available collateral.
+
+Intermediate solutions represent different trade-offs between borrowing cost and borrowing capacity. For each solution, Lendwise determines how the collateral and loan amounts should be distributed across eligible markets.

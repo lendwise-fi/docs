@@ -4,43 +4,43 @@ import { data as stats } from '../.vitepress/stats.data'
 
 # What is Lendwise
 
-Lendwise is a **DeFi lending yield aggregator and optimizer**. It tracks the supply and borrow markets of the major lending protocols, standardizes their rates to one methodology — one standard — and shows you where your capital earns the most, or costs the least to borrow.
+Lendwise is a DeFi lending intelligence platform that aggregates, standardizes and analyzes lending markets across protocols and blockchains. It provides a unified view of supply and borrow rates and helps users optimize their capital allocation.
 
 ## The problem
 
-If you lend or borrow stablecoins on-chain, your yield is scattered across dozens of markets that don't agree on how to report it:
+DeFi lending is fragmented across protocols, chains and assets. Protocols use different rate conventions, compounding methods, time windows, rewards and fees.
 
-- **Aave V3**, **Morpho** (Blue + MetaMorpho vaults), and **Compound V3** each publish rates differently.
-- The same asset — say USDC — trades at materially different rates on different protocols and chains at the same moment.
-- "APY" from one protocol includes rewards; from another it doesn't. Some quote a base rate, some a net rate. Fees may or may not be subtracted.
+**Aave V3**, **Morpho Blue** and **Compound V3** each publish rates differently. For the same asset, such as USDC, reported APYs can then differ materially across protocols. An APY may include rewards on one protocol but exclude them on another. Some protocols display a base rate, while others display a net one. Fees may or may not be deducted.
 
-The result: comparing two lending opportunities usually means comparing two numbers that were never computed the same way. Capital ends up parked in the wrong place, quietly under-earning.
+As a result, lending markets are not directly comparable.
 
 ## What Lendwise does
 
-Two things:
+Lendwise standardizes lending and borrowing data and optimizes capital allocation.
 
-**One standard.** Lendwise ingests every tracked market on a fixed cadence and republishes it under one consistent methodology:
+### One standard
 
-- **{{ stats.lendingMarkets }} active products** across **{{ stats.assets }} assets**
-- **{{ stats.standardizedChains }} chains standardized** — every mainnet the protocol APIs serve, from Ethereum and Base to Plasma and Katana — with wallet execution on {{ stats.executionChains }} of them (the rest are view-only)
-- **3 protocols** — Aave V3, Morpho (Blue & MetaMorpho), Compound V3
-- Rates stored as **APY**, with rewards, fees, and direction handled explicitly (see [Methodology](/guide/methodology))
+Lendwise tracks {{ stats.lendingMarkets }} markets across Aave, Morpho and Compound on {{ stats.standardizedChains }} chains. Every rate is standardized into one comparable net APY, accounting for fees and rewards.
 
-**One allocation.** On top of that standardized dataset, the [optimizer](/guide/optimization) tells you how to deploy your capital — an allocation across markets matched to your risk profile and investment horizon.
+### One allocation
 
-## Who it's for
+Standardized rates are the foundation for smart capital allocation. Our [optimizer](/guide/optimization) then determines how capital should be allocated across markets based on yield, risk preferences, diversification constraints and investment horizon.
 
-- **Yield-focused lenders** deciding where to supply stablecoins or ETH.
-- **Borrowers** minimizing interest and picking the cheapest collateralized market.
-- **Analysts and builders** who want a clean, cross-protocol rate feed via the [GraphQL API](/api/).
+## Who it is for
+
+- **Lenders** looking for attractive yields across markets.
+- **Borrowers** seeking to reduce borrowing costs across protocols and chains.
+- **Analysts and builders** accessing standardized lending and borrowing data through the [GraphQL API](/api) and our [MCP server](/api/mcp).
 
 ## Where to go next
 
-- [Getting started](/guide/getting-started) — the fastest path from "curious" to "found a better rate".
-- [The optimizer](/guide/optimization) — how Lendwise decides what to surface.
-- [GraphQL API](/api/) — query the data yourself.
+- **[Getting started](/guide/getting-started)** - explore lending markets and compare rates.
+- **[The optimizer](/guide/optimization)** - understand how capital allocations are calculated.
+- **[GraphQL API](/api/)** - access standardized data.
+- **[MCP server](/api/mcp)** - integrate Lendwise into your applications.
 
-::: warning Not financial advice
-Lendwise is an information tool. DeFi lending carries smart-contract, oracle, liquidation, and market risk. Always do your own research.
+<br />
+
+::: warning NOT FINANCIAL ADVICE
+Lendwise is an information tool. DeFi lending involves smart contract, oracle, liquidation and market risk. Always conduct your own research.
 :::

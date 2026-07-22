@@ -1,34 +1,29 @@
 # Getting started
 
-You don't need a wallet or an account to use Lendwise for research. Connect one only when you want to act on what you find.
+A wallet is not required to explore Lendwise and track lending markets. Connect one only to monitor and rebalance your positions.
 
 ## 1. Open the app
 
-Go to **[lendwise.fi](https://lendwise.fi)**. You'll land on the market table — every tracked supply and borrow product, filterable by asset, protocol, and chain.
+Open the **[lendwise.fi](https://lendwise.fi)** app to access all markets. Use the Supply and Borrow views to identify lending opportunities and assess borrowing costs. Filter and sort markets based on your objective.
 
-## 2. Pick what you're doing
+## 2. Understand standardized rates
 
-- **Lending?** Filter by the asset you hold (e.g. USDC) and sort by net supply APY. Lendwise shows the same asset across every protocol and chain side by side.
-- **Borrowing?** Filter by the asset you want to borrow and the collateral you'll post. Sort by net borrow APY (lower is cheaper).
+Every rate is standardized into a comparable net APY, with a detailed breakdown of its components:
 
-## 3. Read the rate correctly
+- **Net Supply APY** = base APY − fees APY + rewards APY
+- **Net Borrow APY** = base APY + fees APY − rewards APY
 
-Every rate on Lendwise is a **net APY** computed the same way for every protocol:
+This makes rates directly comparable across protocols and chains. Expand any market to view its base, fees and incentives APY.
 
-- **Supply net** = base − fees + rewards
-- **Borrow net** = base + fees − rewards
+## 3. Manage your positions
 
-So a 5.1% USDC supply on one venue is directly comparable to a 4.8% USDC supply on another — no mental adjustment needed. Expand a row to see the full breakdown (base, rewards, fees, and each reward token).
+Connect your wallet to monitor your lending and borrowing positions across protocols and chains. Lendwise helps you identify potential rebalancing opportunities across markets.
 
-## 4. Act (optional)
+## 4. Build with the data
 
-When you've found a better venue, open the protocol and execute the move there. Lendwise points you to the opportunity; the transaction happens on the underlying protocol.
-
-## 5. Build on it
-
-Want alerts, a custom dashboard, or your own optimizer? The same data powering the app is available through the [GraphQL API](/api/) — no key required for public queries.
+The data powering Lendwise is available through the [GraphQL API](/api). Use it to build alerts, dashboards or allocation tools. Public queries do not require an API key.
 
 ## Next
 
-- [The optimizer](/guide/optimization) — the logic behind "you're in the wrong market".
-- [Data & methodology](/guide/methodology) — exactly how each number is produced.
+- [The optimizer](/guide/optimization) — understand how capital allocations are calculated.
+- [Data & methodology](/guide/methodology) — understand how rates are standardized.

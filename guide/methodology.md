@@ -1,63 +1,44 @@
-# Data & methodology
+# Data and methodology
 
-Every rate Lendwise shows is produced by the same pipeline, so numbers are comparable across protocols and chains. This page documents exactly how.
+Lendwise collects lending market data from protocol APIs and chain-specific subgraphs. The data is standardized across protocols and chains.
 
-## Sources
+## Data Sources
 
-Each protocol has a dedicated adapter that reads from the most authoritative source available and transforms it into the Lendwise standard:
+Each protocol is connected through a dedicated adapter:
 
-- **Aave V3** — the official Aave GraphQL API (`api.v3.aave.com`).
-- **Morpho** — Blue markets and MetaMorpho vaults via the official Morpho API (`api.morpho.org`).
-- **Compound V3** — per-chain subgraphs on The Graph (subgraph schemas differ by chain; each chain has its own queries where needed).
-- **Reward incentives** — protocol emissions plus **Merkl** campaigns, reconciled per market.
+- **Aave V3**: official [Aave GraphQL API](https://api.v3.aave.com/graphql).
+- **Morpho**: official [Morpho API](https://api.morpho.org/graphql).
+- **Compound V3**: chain-specific [subgraphs](https://thegraph.com/explorer).
+- **Incentives**: protocol rewards and external campaigns from [Merkl](https://app.merkl.xyz/).
 
-When multiple sources are aggregated, one source failing never blocks the others — partial data is better than no data. The adapter architecture is open source: see the [adapter guide](https://github.com/lendwise-fi/lendwise/blob/main/src/lib/protocols/README.md) if you want to add a protocol.
+Each adapter processes its source independently, so a source failure does not block updates from the other protocols. See the adapter guide to add a protocol.
 
-## Cadence
+## Data collection
 
-```
-Every 10 minutes   → collect a spot APY snapshot for every market → apy_hourly
-Daily (00:10 UTC)  → aggregate the day's hourly rows → apy_daily
-```
+Lendwise collects a **spot APY snapshot** for every market every 10 minutes. These snapshots are aggregated into hourly averages and then into daily averages for each market.
 
-- **Hourly** rows are a running average per market per hour — resilient to a single noisy read.
-- **Daily** rows are a single averaged value per market per day, and carry a **completeness** score: how many of the day's expected hourly slots were actually captured. Days below the reliability threshold are flagged and excluded from comparisons.
-- Gaps are detected and healed automatically; healed values are marked as such internally.
+Hourly averages reduce the impact of individual noisy observations. Daily values include a completeness score based on the number of hourly observations collected.
 
-## APR → APY
+Missing observations are detected and recovered automatically. Recovered values are marked internally.
 
-Protocols report rewards as APR. Lendwise converts every APR to APY with daily compounding before it's ever stored or compared:
+## Market identification
 
-```
-APY = (1 + APR / 365) ^ 365 − 1
-```
+Each market is identified through structured `productId` and structured fields, including its protocol, numeric chain ID, asset and market type, as well as its collateral asset when applicable. Chain names are used only for display.
 
-This matters: a raw 20% reward APR is ~22.1% APY. Comparing an APR from one protocol to an APY from another silently mis-ranks markets. Lendwise never does this.
+Filters use these structured fields rather than parsing market names.
 
-## Net APY
+## Data quality
 
-All rates are stored and compared as **net APY**, direction-aware:
-
-- **Supply net** = base − fees + rewards
-- **Borrow net** = base + fees − rewards
-
-Each rate also keeps its full breakdown — base, total rewards, fees, and every individual reward token (with source: protocol, Merkl, or Merit) — so you can audit any headline number.
-
-## Standardization rules
-
-A few rules keep the standard honest across protocols:
-
-- **Chains are identified by chain ID, never by name.** Adapters spell the same chain differently ("Ethereum" vs "ethereum"); only the numeric chain ID is canonical.
-- **Product identity is structured, not parsed.** Every market has typed fields — provider, chain, asset, kind (supply/borrow) — rather than a string that gets sliced. Filters hit indexed columns, not substrings.
-- **Rates are always APY.** No mixing of APR and APY anywhere in the dataset.
-- **Every adapter passes the same conformance harness** — live validation of shapes, magnitudes, and product-set consistency before its data ships.
+Each adapter is validated before its data is included. Its output is checked for structure, valid values and consistency between markets and APY snapshots.
 
 ## Known limitations
 
-- Rates are snapshots on a 10-minute cadence, not real-time streaming.
-- A market appears only once it's been indexed; brand-new markets may lag by up to a cycle.
-- Occasional discrepancies between a protocol's official API and its own UI are resolved in favor of the official API. Documented cases are tracked publicly.
+Rates are collected as snapshots every 10 minutes and are not streamed in real time.
 
-## Query it yourself
+A newly launched market may not appear until the next indexing cycle.
 
-Everything above is exposed through the [GraphQL API](/api/) — hourly and daily APY, the full breakdown, market state (TVL, utilization, price), and product metadata.
+When a protocol’s official API and interface display different values, Lendwise uses the official API as its source.
+
+## Query the data
+
+Hourly and daily APYs, market states and product metadata are available through the Lendwise GraphQL API.

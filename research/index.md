@@ -1,44 +1,31 @@
 # Research
 
-Lendwise is built on original research into how lending yield is priced, reported, and dispersed across DeFi protocols. This page hosts our work.
+Research is a cornerstone of Lendwise. Our research spans interest-rate design, capital allocation and optimal execution in decentralized markets.
 
-## Working paper
+## Research articles
 
-**Cross-Protocol Yield Dispersion in DeFi Lending Markets** _(working title)_
+**Optimal risk-aware interest rates for decentralized lending protocols**
 
-> **Abstract.** _Placeholder — replace with the paper abstract._ We study the dispersion of realized lending yields for identical assets across the major on-chain money markets (Aave V3, Morpho, Compound V3) over multiple chains. Using a standardized, direction-aware APY methodology that converts all reward APRs to compounded APY and nets protocol fees, we quantify the persistent same-asset spread available to lenders, characterize its drivers (incentive programs, utilization dynamics, and fragmentation across chains), and estimate the yield left on the table by capital that does not rebalance.
+> **Abstract.** _Decentralized lending protocols set interest rates algorithmically according to the supply and demand for liquidity. We propose an agent-based model and determine the optimal interest rate policy. Linear agent responses lead to a system of Riccati-type ODEs, while nonlinear responses are addressed using Monte Carlo estimation and deep learning. After calibrating the model on block-level data, we compare its risk-adjusted performance with industry-standard interest rate models._
 
-- **Authors:** _TBD_
-- **Status:** Working paper — _draft_
-- **Download:** _PDF link TBD — drop the file in `docs/public/` and link it here._
+- **Authors:** _Bastien Baude, Damien Challet and Ioane Muni Toke_
+- **Source:** [_https://arxiv.org/abs/2502.19862_](https://arxiv.org/abs/2502.19862)
 
-::: info Publishing checklist
-1. Add the PDF to `docs/public/research-paper.pdf`.
-2. Replace the abstract, authors, and status above.
-3. Link the PDF: `[Download the PDF](/research-paper.pdf)`.
-4. Add a citation block (BibTeX) below once there's a DOI or arXiv id.
-:::
+---
 
-## What the paper formalizes
+**Leveraged positions on decentralized lending platforms**
 
-The research underpins three things you can see in the product:
+> **Abstract.** _We develop a mathematical framework to optimize leveraged staking strategies in which a staked asset is supplied as collateral, the underlying asset is borrowed and restaked, and the process can be repeated across multiple lending markets. The problem is reduced to a convex allocation across markets, with closed-form solutions for linear, kinked and adaptive interest rate models. The framework accounts for leverage limits, utilization-dependent borrowing costs and transaction fees._
 
-1. **The same-asset spread is real and persistent** — not a fleeting arbitrage, but a structural feature of fragmented lending markets. This is the basis of the [optimizer](/guide/optimization).
-2. **Naïve rate comparison is systematically wrong** — mixing APR with APY, or base with net, mis-ranks markets. Our standardization ([methodology](/guide/methodology)) removes that bias.
-3. **Dispersion is measurable and trackable** — quantifying it over time is what the [GraphQL API](/api/) exposes.
+- **Authors:** _Bastien Baude, Vincent Danos and Hamza El Khalloufi_
+- **Source:** [_https://arxiv.org/abs/2601.14005_](https://arxiv.org/abs/2601.14005)
 
-## Citing this work
+---
 
-Once published, cite as:
+**Optimal execution on Uniswap v2/v3 under transient price impact**
 
-```bibtex
-@techreport{lendwise_yield_dispersion,
-  title  = {Cross-Protocol Yield Dispersion in DeFi Lending Markets},
-  author = {TBD},
-  year   = {2026},
-  note   = {Working paper, Lendwise},
-  url    = {https://lendwise.fi/docs/research/}
-}
-```
+> **Abstract.** _We study the optimal liquidation of a large position on Uniswap v2 and Uniswap v3 in discrete time. Instantaneous price impact is derived from the AMM pricing rule, while transient impact captures exponential or approximately power-law decay together with a permanent component. For Uniswap v2, optimal strategies are obtained in closed form under general price dynamics. For Uniswap v3, we introduce a two-layer liquidity model and solve the problem through dynamic programming and numerical approximation._
 
-_Have feedback on the methodology or want the dataset? Reach out on [X](https://x.com/lendwisefi)._
+- **Authors:** _Bastien Baude, Damien Challet and Ioane Muni Toke_
+- **Source:** [_https://arxiv.org/abs/2601.03799_](https://arxiv.org/abs/2601.03799)
+
