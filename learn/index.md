@@ -1,6 +1,6 @@
 # Lendwise Learn
 
-Educational articles on DeFi lending, yield, and how to stop leaking it. Written for people who actually move capital on-chain.
+Educational articles on DeFi lending markets, rates and risk.
 
 <LearnIndex />
 
