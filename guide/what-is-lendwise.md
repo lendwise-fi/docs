@@ -10,7 +10,7 @@ Lendwise is a DeFi lending intelligence platform that aggregates, standardizes a
 
 DeFi lending is fragmented across protocols, chains and assets. Protocols use different rate conventions, compounding methods, time windows, rewards and fees.
 
-**Aave V3**, **Morpho Blue** and **Compound V3** each publish rates differently. For the same asset, such as USDC, reported APYs can then differ materially across protocols. An APY may include rewards on one protocol but exclude them on another. Some protocols display a base rate, while others display a net one. Fees may or may not be deducted.
+**Aave V3**, **Morpho Blue** and **Compound V3** each publish rates differently, and **Blend** on Stellar publishes none at all: its rates are computed on-chain from each pool's state. For the same asset, such as USDC, reported APYs can then differ materially across protocols. An APY may include rewards on one protocol but exclude them on another. Some protocols display a base rate, while others display a net one. Fees may or may not be deducted.
 
 As a result, lending markets are not directly comparable.
 
@@ -20,7 +20,7 @@ Lendwise standardizes lending and borrowing data and optimizes capital allocatio
 
 ### One standard
 
-Lendwise tracks {{ stats.lendingMarkets }} markets across Aave, Morpho and Compound on {{ stats.standardizedChains }} chains. Every rate is standardized into one comparable net APY, accounting for fees and rewards.
+Lendwise tracks {{ stats.lendingMarkets }} markets across Aave, Morpho, Compound and Blend on {{ stats.standardizedChains }} chains — EVM chains and Stellar. Every rate is standardized into one comparable net APY, accounting for fees and rewards.
 
 ### One allocation
 

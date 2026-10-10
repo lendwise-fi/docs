@@ -126,7 +126,7 @@ export default defineConfig({
   // loader only interpolates into pages/components, not config), so a hardcoded
   // number would rot. Pages state live counts via {{ stats.* }} instead.
   description:
-    'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, and Compound.',
+    'DeFi lending yield, one view. Compare and optimize supply & borrow positions across Aave, Morpho, Compound and Blend.',
   lang: 'en-US',
   // Served under https://lendwise.fi/docs via a rewrite in the dashboard project
   base: '/docs/',

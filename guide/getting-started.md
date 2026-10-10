@@ -19,6 +19,8 @@ This makes rates directly comparable across protocols and chains. Expand any mar
 
 Connect your wallet to monitor your lending and borrowing positions across protocols and chains. Lendwise helps you identify potential rebalancing opportunities across markets.
 
+Both EVM and Stellar wallets are supported. For Stellar, choose **Connect wallet → Stellar Network**, then Freighter, xBull, Lobstr or Albedo. Signing in uses [SEP-10](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md): your wallet signs a challenge transaction that proves you control the address. That transaction is never submitted to the network — no fee, no funds moved. The session is verified by the Lendwise server and survives a page refresh.
+
 ## 4. Build with the data
 
 The data powering Lendwise is available through the [GraphQL API](/api/graphql). Use it to build alerts, dashboards or allocation tools. Public queries do not require an API key.
