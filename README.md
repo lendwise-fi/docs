@@ -46,5 +46,3 @@ pnpm dev        # http://localhost:5173
 - **Fix a page:** every page is a Markdown file (`guide/`, `api/`, `learn/`, `research/`) — edit and open a PR. `pnpm build` checks the site compiles.
 - **Add a Learn post:** add `learn/my-post.md` with frontmatter (`title`, `description`, `date`, `author`) — the sidebar and homepage list pick it up automatically.
 - **Add a Guide page:** add the file under `guide/` and register it in the sidebar in `.vitepress/config.ts`.
-
-See [CLAUDE.md](CLAUDE.md) for the full architecture notes (content pipeline, CMS, deployment).
