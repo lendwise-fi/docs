@@ -206,11 +206,13 @@ Once the adapter is registered and its rows reach `apy_hourly`:
   network filter, and in the public GraphQL API. Daily averages aggregate every product of the
   hourly table, whatever its protocol.
 - **Ranking.** Rows are ranked by the same rule as Aave, Morpho and Compound, and carry their
-  chain family. A Stellar USDC row gets the **"Bridge to Stellar"** entry point instead of an
-  EVM action.
-- **Bridge.** Every USDC market on Stellar links into the guided CCTP flow
-  (`/bridge/stellar?asset=USDC&product=<productId>`), which delivers native USDC to the user's
-  Stellar wallet. See [CCTP bridge architecture](./cctp-bridge).
+  chain family. The family does not change the rank.
+- **Bridge.** Every USDC row of the tables, Stellar or EVM, shows a **"Bridge to Stellar"** action
+  next to the protocol's own link, which stays. A USDC market on Stellar links into the guided
+  CCTP flow with the product pre-filled (`/bridge/stellar?asset=USDC&product=<productId>`), so
+  the flow names your venue as the next step once native USDC reaches the user's Stellar wallet.
+  An EVM USDC row pre-fills its chain as `source=` when it is a supported CCTP source chain, and
+  no source otherwise. See [CCTP bridge architecture](./cctp-bridge).
 - **Monitoring.** The nightly reconcile detects missing hours, refetches them through your
   `getApyHistory`, and reports them under the `stellar` family of its report, next to the EVM
   protocols.
