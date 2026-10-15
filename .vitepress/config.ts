@@ -196,6 +196,7 @@ export default defineConfig({
       { text: 'API', link: '/api/' },
       { text: 'Research', link: '/research/' },
       { text: 'Learn', link: '/learn/' },
+      { text: 'Integrate', link: '/integrate/' },
       { text: 'App', link: 'https://lendwise.fi' },
     ],
 
@@ -236,6 +237,19 @@ export default defineConfig({
         {
           text: 'Learn',
           items: [{ text: 'All posts', link: '/learn/' }, ...learnSidebarItems()],
+        },
+      ],
+      '/integrate/': [
+        {
+          text: 'Integrate',
+          items: [
+            { text: 'Overview', link: '/integrate/' },
+            {
+              text: 'Stellar lending protocols',
+              link: '/integrate/stellar-lending-protocol',
+            },
+            { text: 'CCTP bridge', link: '/integrate/cctp-bridge' },
+          ],
         },
       ],
     },
