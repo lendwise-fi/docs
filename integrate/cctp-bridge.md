@@ -196,10 +196,10 @@ paced queue: Iris allows 35 requests per second and blocks a client for 5 minute
 
 ## Testnet mode
 
-A dedicated staging deployment runs the whole flow on **Stellar testnet** and **Sepolia, Base
-Sepolia and Arbitrum Sepolia**, against Circle's sandbox, so anyone can try it without real
-funds. One switch per deployment (`NEXT_PUBLIC_STELLAR_NETWORK`) moves the sign-in, the wallet
-kit, Horizon, Soroban RPC, the CCTP contracts, Iris and the EVM chains together; production is
-always mainnet. A "Testnet" badge in the navigation bar marks the staging deployment, so nobody
+[testnet.lendwise.fi](https://testnet.lendwise.fi) runs the whole flow on **Stellar testnet** and
+**Sepolia, Base Sepolia and Arbitrum Sepolia**, against Circle's sandbox, so anyone can try it
+without real funds. One switch per deployment (`NEXT_PUBLIC_NETWORK`) moves the sign-in, the
+wallet kit, Horizon, Soroban RPC, the CCTP contracts, Iris and the EVM chains together; production
+is always mainnet. A "Testnet" badge in the navigation bar marks the testnet deployment, so nobody
 mistakes it for lendwise.fi. To try it you need a Stellar wallet set to testnet, testnet XLM from
 Friendbot, and testnet USDC from [Circle's faucet](https://faucet.circle.com).
