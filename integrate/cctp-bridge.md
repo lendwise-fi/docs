@@ -103,7 +103,8 @@ failure would only appear **after** the burn was attested. So the check gates th
 | `not-authorized`    | the issuer has not authorized the trustline                           | the transfer is blocked                             |
 | `ready`             | none of the above                                                     | the burn is unlocked                                |
 
-The burn button stays disabled until the state is `ready`. If the trustline disappears between
+The bridge's single button names the step to complete (for example "Add USDC to your Stellar
+wallet") and only offers the burn once the state is `ready`. If the trustline disappears between
 burn and mint, `mint_and_forward` reverts as a whole: the attested message stays unconsumed and the
 mint can be retried once the trustline is back.
 
@@ -178,9 +179,10 @@ Every transfer is a row in the `bridge_transfers` table, written by the server a
 
 The row holds every hash (ChangeTrust, approval, burn, mint), the Iris nonce, the fee executed and
 the amount received. It is the audit log, and it is what makes the flow **resumable**: after a
-reload, on another device or after a failure, the bridge page lists the signed-in account's
-unfinished transfers with "Resume". A burn made outside the page can be imported from its
-transaction hash, provided its hook data names the signed-in account. Once a burn exists, the
+reload, on another device or after a failure, the bridge's transfers window (the clock button on
+the widget) lists the signed-in account's unfinished transfers with "Resume". A burn made outside
+the page can be imported there from its transaction hash ("Transfer not listed?"), provided its
+hook data names the signed-in account. Once a burn exists, the
 page never offers to start over — only to resume, so a transfer is never burned twice.
 
 A burn is unique **per owner**: the table's unique index is
