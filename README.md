@@ -25,6 +25,7 @@ New to Lendwise? Read in this order:
 | [GraphQL API](https://lendwise.fi/docs/api/) | Free public API for the full standardized dataset — hourly/daily APY, rate breakdowns, market state. No API key needed |
 | [Learn](https://lendwise.fi/docs/learn/) | Educational articles on DeFi lending and yield — protocol comparisons, why the same asset yields differently across markets |
 | [Research](https://lendwise.fi/docs/research/) | Original research on yield dispersion across DeFi lending markets |
+| [Integrate](https://lendwise.fi/docs/integrate/) | For Stellar lending protocols: the adapter contract. For builders: the CCTP bridge architecture |
 
 **Builders:** the [GraphQL API](https://lendwise.fi/docs/api/) exposes the same data that powers the app at `https://lendwise.fi/api/graphql`, with an interactive GraphiQL explorer — just open the endpoint in a browser.
 
