@@ -207,12 +207,12 @@ Once the adapter is registered and its rows reach `apy_hourly`:
   hourly table, whatever its protocol.
 - **Ranking.** Rows are ranked by the same rule as Aave, Morpho and Compound, and carry their
   chain family. The family does not change the rank.
-- **Bridge.** Every USDC row of the tables, Stellar or EVM, shows a **"Bridge to Stellar"** action
-  next to the protocol's own link, which stays. A USDC market on Stellar links into the guided
+- **Bridge.** Every USDC row on Stellar shows a **"Bridge to Stellar"** action next to the
+  protocol's own link, which stays. A USDC market on Stellar links into the guided
   CCTP flow with the product pre-filled (`/bridge/stellar?asset=USDC&product=<productId>`), so
   the flow names your venue as the next step once native USDC reaches the user's Stellar wallet.
-  An EVM USDC row pre-fills its chain as `source=` when it is a supported CCTP source chain, and
-  no source otherwise. See [CCTP bridge architecture](./cctp-bridge).
+  An EVM USDC row shows the action only on a CCTP source chain, with that chain pre-filled as
+  `source=`; rows on other chains have none. See [CCTP bridge architecture](./cctp-bridge).
 - **Monitoring.** The nightly reconcile detects missing hours, refetches them through your
   `getApyHistory`, and reports them under the `stellar` family of its report, next to the EVM
   protocols.
