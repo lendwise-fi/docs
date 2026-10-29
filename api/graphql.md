@@ -44,9 +44,9 @@ enum BorrowApyOrderBy { time  apyNet  apyBase  supplyAssetsUsd  borrowAssetsUsd 
 input DailyFilters {
   productId: String        # exact market, e.g. "aave:v3:ethereum:reserve:0x…:supply"
   productIds: [String!]    # batch of exact productIds — max 50
-  protocol: ProtocolName   # aave | morpho | compound | blend
+  protocol: ProtocolName   # aave | morpho | compound | blend | kamino
   market: String           # native market name, e.g. "AaveV3Ethereum"
-  chainId: Int             # 1, 10, 137, 8453, 42161, 43114, 59144, 56, -1 (Stellar)
+  chainId: Int             # 1, 10, 137, 8453, 42161, 43114, 59144, 56, -1 (Stellar), -2 (Solana)
   asset: String            # loan asset symbol, e.g. "USDC", "WETH"
   minTvlUsd: Float         # ignore markets below this supplied TVL
   includeIneligible: Boolean # raw-data escape hatch: include dust pools & absurd rates
@@ -196,7 +196,7 @@ Page by increasing `skip` in steps of `first` until `skip + count >= countTotal`
 ## Enums
 
 ```graphql
-enum ProtocolName { aave  morpho  compound  blend }
+enum ProtocolName { aave  morpho  compound  blend  kamino }
 enum OrderDirection { asc  desc }
 enum RewardSource { protocol  merkl  merit }
 ```
@@ -205,6 +205,7 @@ enum RewardSource { protocol  merkl  merit }
 
 - **Supported chain IDs:** 1 (Ethereum), 10 (Optimism), 137 (Polygon), 8453 (Base), 42161 (Arbitrum), 43114 (Avalanche), 59144 (Linea), 56 (BSC). Avalanche, Linea, and BSC are Aave-only today.
 - **Stellar** is chain ID `-1` (Blend v2.1). Its productIds read `blend:v2.1:stellar:pool:<pool>:<asset>:<supply|borrow>`.
+- **Solana** is chain ID `-2` (Kamino Lend). Its productIds read `kamino:v1:solana:reserve:<market>:<reserve>:<supply|borrow>`; `<market>` and `<reserve>` are case-sensitive base58 addresses.
 - **Filter chains by `chainId`, not name** — adapter chain names are inconsistent.
 - **Rates are always APY**, direction-aware; see [Methodology](/guide/methodology).
 - **Rate limit:** 60 requests/min per IP.
