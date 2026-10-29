@@ -19,7 +19,7 @@ This makes rates directly comparable across protocols and chains. Expand any mar
 
 Connect your wallet to monitor your lending and borrowing positions across protocols and chains. Lendwise helps you identify potential rebalancing opportunities across markets.
 
-EVM, Solana and Stellar wallets are supported. For Solana, choose **Connect Wallet → Solana Wallet**, then Phantom or Solflare. Signing in uses Sign-In With Solana: your wallet signs a plain message that proves you control the address. Nothing is sent to the network — no transaction, no fee, no funds moved. The session is verified by the Lendwise server and survives a page refresh. Your Kamino Lend positions and health factor then appear in the portfolio.
+EVM, Solana and Stellar wallets are supported. For Solana, choose **Connect Wallet → Solana Wallet**, then a wallet such as Phantom or Solflare. Signing in uses Sign-In With Solana: your wallet signs a plain message that proves you control the address. Nothing is sent to the network — no transaction, no fee, no funds moved. The session is verified by the Lendwise server and survives a page refresh. Your Kamino Lend positions and health factor then appear in the portfolio.
 
 For Stellar, choose **Connect Wallet → Stellar Wallet**, then Freighter, xBull, Lobstr or Albedo. Signing in uses [SEP-10](https://github.com/stellar/stellar-protocol/blob/master/ecosystem/sep-0010.md): your wallet signs a challenge transaction that proves you control the address. That transaction is never submitted to the network — no fee, no funds moved. The session is verified by the Lendwise server and survives a page refresh.
 

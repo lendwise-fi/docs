@@ -20,7 +20,7 @@ Lendwise standardizes lending and borrowing data and optimizes capital allocatio
 
 ### One standard
 
-Lendwise tracks {{ stats.lendingMarkets }} markets across Aave, Morpho, Compound, Kamino and Blend on {{ stats.standardizedChains }} chains — EVM chains, Solana and Stellar. Every rate is standardized into one comparable net APY, accounting for fees and rewards.
+Lendwise tracks {{ stats.lendingMarkets }} markets across Aave, Morpho, Compound, Kamino and Blend on {{ stats.standardizedChains }} EVM chains, plus Solana and Stellar. Every rate is standardized into one comparable net APY, accounting for fees and rewards.
 
 ### One allocation
 
