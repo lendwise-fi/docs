@@ -1,6 +1,6 @@
 # Data and methodology
 
-Lendwise collects lending market data from protocol APIs, chain-specific subgraphs and — for Stellar — the ledger itself. The data is standardized across protocols and chains.
+Lendwise collects lending market data from protocol APIs, chain-specific subgraphs and — for Stellar — the ledger itself. Solana is read from Kamino's public API. The data is standardized across protocols and chains.
 
 ## Data Sources
 
@@ -10,6 +10,7 @@ Each protocol is connected through a dedicated adapter:
 - **Morpho**: official [Morpho API](https://api.morpho.org/graphql).
 - **Compound V3**: chain-specific [subgraphs](https://thegraph.com/explorer).
 - **Blend** (Stellar): the pool contracts themselves, read through Soroban RPC with the [Blend SDK](https://www.npmjs.com/package/@blend-capital/blend-sdk). Blend stores each reserve's inputs, not its rates, so supply and borrow APYs are computed from that state exactly as Blend's own app computes them. Lendwise collects Blend's **v2.1** deployment; the v1 and v2 pools, all frozen or on ice, are no longer collected, and their history stays available.
+- **Kamino Lend** (Solana): the official [Kamino REST API](https://api.kamino.finance). Spot rates come from its reserve statistics and hourly and daily history from each reserve's metrics history. Lendwise lists the active, variable-rate reserves; the base rate is the lending rate, and rewards are Kamino's own incentives (underlying LST yield, points and seasons are not counted).
 - **Incentives**: protocol rewards and external campaigns from [Merkl](https://app.merkl.xyz/).
 
 Each adapter processes its source independently, so a source failure does not block updates from the other protocols. See the adapter guide to add a protocol.
@@ -36,7 +37,7 @@ Two things are not reconstructed: BLND emissions (the reward APY is 0 in rebuilt
 
 ## Market identification
 
-Each market is identified through structured `productId` and structured fields, including its protocol, numeric chain ID, asset and market type, as well as its collateral asset when applicable. Chain names are used only for display. Stellar has no EVM chain ID: its markets use chain ID `-1`, e.g. `blend:v2.1:stellar:pool:<pool>:<asset>:supply`.
+Each market is identified through structured `productId` and structured fields, including its protocol, numeric chain ID, asset and market type, as well as its collateral asset when applicable. Chain names are used only for display. Stellar and Solana have no EVM chain ID: Stellar markets use chain ID `-1`, e.g. `blend:v2.1:stellar:pool:<pool>:<asset>:supply`, and Solana markets use chain ID `-2`, e.g. `kamino:v1:solana:reserve:<market>:<reserve>:supply`.
 
 Filters use these structured fields rather than parsing market names.
 

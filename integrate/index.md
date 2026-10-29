@@ -1,6 +1,6 @@
 # Integrate with Lendwise
 
-Lendwise compares lending markets across EVM chains and Stellar with one standardized dataset. A
+Lendwise compares lending markets across EVM chains, Solana and Stellar with one standardized dataset. A
 lending protocol plugs in **once**, through one adapter contract. From then on it gets everything
 the platform does for Aave, Morpho and Compound, with no further work on Lendwise's side.
 
